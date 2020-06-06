@@ -74,4 +74,27 @@ public class Road {
             road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
         }
     }
+    void move(){ //function which moves car on the whole bypass, temporary version moving them in only one direction
+        int k = 0;
+        int velocity;
+        boolean moveWithCurrV = true;
+        for (int i = 0; i<1733; i++){
+            if (road1[i][0].getisCar()) {
+                velocity = road1[i][0].getCar().getSpeed();
+                for (int v = 1; v <= velocity; v++){ //checking if all the cells we want to go through are free
+                    if (road1[i+v][0].getisCar()){
+                        moveWithCurrV = false;
+                        break;
+                    }
+                    if (v == velocity && moveWithCurrV){
+                        road1[i][0].swapCar(road1[i+v][0]);//swap cells on positions i and i+v
+                    }
+                }
+            }
+
+
+
+
+        }
+    }
 }

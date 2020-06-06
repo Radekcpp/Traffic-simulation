@@ -24,8 +24,12 @@ public class Cell {
 
     public void setType(RoadType type) { this.type = type; }
 
-    public void setCar(boolean ifcar) {
-        this.isCar = ifcar;
+    public void setCar(CarInstance car) {
+        this.car = car;
+    }
+
+    public void setisCar(boolean ifcar) {
+       this.isCar = ifcar;
     }
 
     public void setDistanceFromLights(int distance_from_lights) {
@@ -50,8 +54,24 @@ public class Cell {
         return distanceFromLights;
     }
 
+    public CarInstance getCar() {
+        return car;
+    }
+
+    public boolean getisCar() {
+        return isCar;
+    }
+
     public RoadType getType() {
         return type;
+    }
+
+    public void swapCar (Cell cell){ //takes a cell with car and switches it to empty and the other way around
+        CarInstance temp = this.car;
+        this.car = cell.getCar();
+        cell.setCar(temp);
+        this.isCar = false;
+        cell.setisCar(true);
     }
 
 }

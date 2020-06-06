@@ -1,5 +1,5 @@
 package car;
-import cell.Cell;
+import cell.*;
 
 import java.util.Random;
 
@@ -26,11 +26,11 @@ public class CarInstance  {
         this.destination = destinationInt;
     }
 
-    public float getSpeed() { return this.speed; }
+    public int getSpeed() { return this.speed; }
 
     public void setSpeed(int speedInc) { this.speed = speedInc; }
 
-    public float getMaxSpeed() { return this.maxSpeed; }
+    public int getMaxSpeed() { return this.maxSpeed; }
 
     public void setMaxSpeed(int speedInc) {
         this.maxSpeed = speedInc;
