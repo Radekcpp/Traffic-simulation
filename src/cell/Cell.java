@@ -8,7 +8,7 @@ public class Cell {
     private CarInstance car;
     private int speed_limit; //speed limit on this road
     private int distance_from_lights; //distance from the nearest traffic lights
-    private int next_crossroad; //number 1-13 defining what crossroad is next
+    private int next_crossroad; //number 1-13 defining which crossroad is next
 
     Cell(){
         this.isCar = false;
@@ -46,9 +46,6 @@ public class Cell {
     public RoadType getType() {
         return type;
     }
-
-
-
 
 }
 
