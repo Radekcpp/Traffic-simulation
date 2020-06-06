@@ -15,6 +15,10 @@ public class Cell {
 
     }
 
+    public Cell(RoadType typ) {
+        this.type=typ;
+    }
+
     public void setType(RoadType type) {
         this.type = type;
     }
