@@ -1,7 +1,7 @@
 package road;
 import java.util.Random;
-import cell.Cell;
-import cell.RoadType;
+import cell.*;
+
 
 public class Road {
     Cell[][] road1 = new Cell[1733][2];
