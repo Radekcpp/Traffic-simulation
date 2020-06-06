@@ -6,7 +6,7 @@ public class Cell {
     //private Car auto = new Car(); object of class Car, to uncomment after implementing class car
     private int speed_limit; //speed limit on this road
     private int distance_from_lights; //distance from the nearest traffic lights
-    private int next_crossroad; //number 1-13 defining what crossroad is next
+    private int next_crossroad; //number 1-13 defining which crossroad is next
     public void setType(int type) {
         this.type = type;
     }

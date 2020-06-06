@@ -1,14 +1,21 @@
 package sample;
 
 public class TrafficLights {
-    private boolean Lights_colour; //0-red, 1-green
+    private boolean Lights_color; //true - green, false - red
 
-    public void setLights_colour(boolean lights_colour) {
-        this.Lights_colour = lights_colour;
+    public TrafficLights(boolean color){
+        this.Lights_color = color;
+    }
+    public void setLights_color(boolean lights_colour) {
+        this.Lights_color = lights_colour;
     }
 
-    public boolean getLights_colour(){
-        return this.Lights_colour;
+    public boolean getLights_color(){
+        return this.Lights_color;
+    }
+
+    public void Change_color(){
+        Lights_color = !this.Lights_color;
     }
 
 
