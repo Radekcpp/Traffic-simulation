@@ -1,4 +1,6 @@
 package car;
+import cell.Cell;
+
 import java.util.Random;
 
 public class CarInstance  {
@@ -49,6 +51,9 @@ public class CarInstance  {
 
     public void decreaseSpeed() { this.speed--; }
 
-
+    public void move(Cell cell) {
+        if (speed < maxSpeed)
+            this.increaseSpeed();
+    }
 
 }
