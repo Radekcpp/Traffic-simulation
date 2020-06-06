@@ -10,12 +10,12 @@ public class Cell {
     private int distance_from_lights; //distance from the nearest traffic lights
     private int next_crossroad; //number 1-13 defining which crossroad is next
 
-    Cell(){
+    public  Cell(){
         this.isCar = false;
-
     }
 
     public Cell(RoadType typ) {
+        this.isCar = false;
         this.type=typ;
     }
 
