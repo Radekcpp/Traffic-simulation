@@ -1,5 +1,7 @@
 package road;
 import java.util.Random;
+
+import car.CarInstance;
 import cell.*;
 
 import static java.lang.Math.max;
@@ -69,40 +71,56 @@ public class Road {
             road1[streetLightPoints[counter]][0].setType(RoadType.Lights);
             road1[streetLightPoints[counter]][1].setType(RoadType.Lights);
             road2[streetLightPoints[counter]+2][0].setType(RoadType.Lights);
-            road2[streetLightPoints[counter]+2][0].setType(RoadType.Lights);
+            road2[streetLightPoints[counter]+2][1].setType(RoadType.Lights);
             road1[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
             road1[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
             road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
-            road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
+            road2[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
+        }
+    }
+
+    void CreateCars (int quantity){  //create start amount of cars
+        Random position = new Random();
+        int carPosition = position.nextInt(1733);
+        for (int i = 0; i<quantity; i++){
+            while (road1[carPosition][0].getisCar()) {
+                carPosition = position.nextInt(1733);
+            }
+            road1[carPosition][0].setisCar(true);
+            road1[carPosition][0].setCar(new CarInstance());
         }
     }
     void move() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
         for (int i = 0; i < 1728; i++) {       //forward movement in general, without traffic lights
-            if (road1[i][0].getisCar()) {
-                velocity = road1[i][0].getCar().getSpeed();
-                if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
-                for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
-                    if (road1[i + v][0].getisCar()) {
-                        road1[i][0].getCar().setSpeed(max(0, v - 2));
-                        velocity = max(0, v - 2);
-                        break;
-                    }
+            if (road1[i][0].getMoved()){
+                continue;
+            }
+            else {
+                if (road1[i][0].getisCar()) {
+                    velocity = road1[i][0].getCar().getSpeed();
+                    if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
+                    for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
+                        if (road1[i + v][0].getisCar()) {
+                            road1[i][0].getCar().setSpeed(max(0, v - 2));
+                            velocity = max(0, v - 2);
+                            break;
+                        }
 
                 }
                 if(road1[i][0].getDistanceFromLights()<=10 && road1[i][0].getCar().getDestination()==road1[i][0].getNextCrossroad()) {
                     //FUNCTION TRY TO CHANGE LANE
                 }//change Lane to get to outer so car can leave
-                if(road1[i][1].getDistanceFromLights()<=velocity) //{ in future - LEAVE BYPASS}
+                if(road1[i][1].getDistanceFromLights()<=velocity) {//{ in future - LEAVE BYPASS}
 
-                    // Random slow with given probability - needs to be done
-
-
-                    if (velocity != 0)
-                    road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
-
-
+                        // Random slow with given probability - needs to be done
+                    }
+                    if (velocity != 0) {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
+                    }
+                }
             }
         }
         for (int i = 1728; i < 1733; i++) {       //forward movement in edge case (cars near end of bound, without traffic lights
@@ -116,12 +134,13 @@ public class Road {
                             velocity = max(0, v - 2);
                             break;
                         }
-
                     }
-                    if (velocity != 0)
+                    if (velocity != 0) {
+                        road1[i][0].setMoved(true);
                         road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
-
-                } else if (i + velocity == 1732) {                                                 //edge case without going through nr 2
+                    }
+                }
+                else if (i + velocity == 1732) {                                                 //edge case without going through nr 2
                     for (int v = 1; v <= velocity; v++) { //checking if all the cells we want to go through are free
                         if (road1[i + v][0].getisCar()) {
                             road1[i][0].getCar().setSpeed(max(0, v - 2));
@@ -135,15 +154,22 @@ public class Road {
                             road1[i][0].swapCar(road1[1732][0]);
                         }
                     }
-                } else {                                  // edge case with going through
-                    if(!road1[0][0].getisCar() && !road1[1][0].getisCar())  road1[i][0].swapCar(road1[0][0]);
-
-
-
-
+                    if (road1[0][0].getisCar()){
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[1731][0]);
+                    }
+                    else {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[1732][0]);
+                    }
+                }
+                else {                                  // edge case with going through
+                    if(!road1[0][0].getisCar() && !road1[1][0].getisCar()){
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[0][0]);
+                    }
                 }
             }
         }
-
     }
 }

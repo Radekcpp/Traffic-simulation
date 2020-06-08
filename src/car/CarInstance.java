@@ -11,7 +11,7 @@ public class CarInstance  {
     private int destination;
     private int slowProbability;
 
-    CarInstance(){
+    public CarInstance(){
         Random rand = new Random();
         this.slowProbability=1;
         int driverPersonality = rand.nextInt(3);
