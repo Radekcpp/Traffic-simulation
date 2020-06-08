@@ -158,13 +158,8 @@ public class Road {
                         road1[i][0].setMoved(true);
                         road1[i][0].swapCar(road1[0][0]);
                     }
-
-
-
-
                 }
             }
         }
-
     }
 }
