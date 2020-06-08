@@ -67,10 +67,10 @@ public class Cell {
     }
 
     public void swapCar (Cell cell){ //takes a cell with car and switches it to empty and the other way around
-        CarInstance temp = this.car;
-        this.car = cell.getCar();
+        CarInstance temp = this.getCar();
+        this.setCar(cell.getCar());
         cell.setCar(temp);
-        this.isCar = false;
+        this.setisCar(false);
         cell.setisCar(true);
     }
 
