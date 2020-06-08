@@ -4,6 +4,7 @@ import car.CarInstance;
 
 public class Cell {
     private boolean isCar; // false - empty cell, true - cell with a car (jest na niej auto)
+    private boolean moved; //false - cell wasn't moved yet, true - cell was moved in this iteration
     private RoadType type; // 1 - basic road, 2 - crossroad, 3 - traffic lights
     private CarInstance car;
     private int speedLimit; //speed limit on this road
@@ -20,7 +21,12 @@ public class Cell {
         setType(typeInc);
         setDistanceFromLights(distance);
         setNextCrossroad(nextCrossroadInc);
+        setMoved(false);
     }
+
+    public void setMoved(boolean moved) {this.moved = moved;}
+
+    public boolean getMoved(){return moved;}
 
     public void setType(RoadType type) { this.type = type; }
 
@@ -72,6 +78,9 @@ public class Cell {
         cell.setCar(temp);
         this.setisCar(false);
         cell.setisCar(true);
+        this.setMoved(false);
+        cell.setMoved(true);
+
     }
 
 }
