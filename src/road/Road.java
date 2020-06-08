@@ -120,11 +120,11 @@ public class Road {
                         if (road1[i + v][0].getisCar()) {
                             road1[i][0].getCar().setSpeed(max(0, v - 2));
                             velocity = max(0, v - 2);
+                            if(velocity!=0 && !road1[0][0].getisCar())
+                                 road1[i][0].swapCar(road1[1732][0]);
                             break;
                         }
                     }
-                    if (road1[0][0].getisCar()) road1[i][0].swapCar(road1[1731][0]);
-                    else road1[i][0].swapCar(road1[1732][0]);
                 } else {                                  // edge case with going through
                     if(!road1[0][0].getisCar() && !road1[1][0].getisCar())  road1[i][0].swapCar(road1[0][0]);
 
