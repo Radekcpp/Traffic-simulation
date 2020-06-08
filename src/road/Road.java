@@ -2,6 +2,8 @@ package road;
 import java.util.Random;
 import cell.*;
 
+import static java.lang.Math.max;
+
 
 public class Road {
     Cell[][] road1 = new Cell[1733][2];
@@ -74,27 +76,64 @@ public class Road {
             road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
         }
     }
-    void move(){ //function which moves car on the whole bypass, temporary version moving them in only one direction
+    void move() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
-        boolean moveWithCurrV = true;
-        for (int i = 0; i<1733; i++){
+        for (int i = 0; i < 1728; i++) {       //forward movement in general, without traffic lights
             if (road1[i][0].getisCar()) {
                 velocity = road1[i][0].getCar().getSpeed();
-                for (int v = 1; v <= velocity; v++){ //checking if all the cells we want to go through are free
-                    if (road1[i+v][0].getisCar()){
-                        moveWithCurrV = false;
+                if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
+                for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
+                    if (road1[i + v][0].getisCar()) {
+                        road1[i][0].getCar().setSpeed(max(0, v - 2));
+                        velocity = max(0, v - 2);
                         break;
                     }
-                    if (v == velocity && moveWithCurrV){
-                        road1[i][0].swapCar(road1[i+v][0]);//swap cells on positions i and i+v
+
+
+                    // Random slow with given probability - needs to be done
+                }
+                if (velocity != 0)
+                    road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
+
+
+            }
+        }
+        for (int i = 1728; i < 1733; i++) {       //forward movement in edge case (cars near end of bound, without traffic lights
+            if (road1[i][0].getisCar()) {
+                velocity = road1[i][0].getCar().getSpeed();
+                if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
+                if (i + velocity + 1 < 1732) {      //edge case without going through
+                    for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
+                        if (road1[i + v][0].getisCar()) {
+                            road1[i][0].getCar().setSpeed(max(0, v - 2));
+                            velocity = max(0, v - 2);
+                            break;
+                        }
+
                     }
+                    if (velocity != 0)
+                        road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
+
+                } else if (i + velocity == 1732) {                                                 //edge case without going through nr 2
+                    for (int v = 1; v <= velocity; v++) { //checking if all the cells we want to go through are free
+                        if (road1[i + v][0].getisCar()) {
+                            road1[i][0].getCar().setSpeed(max(0, v - 2));
+                            velocity = max(0, v - 2);
+                            break;
+                        }
+                    }
+                    if (road1[0][0].getisCar()) road1[i][0].swapCar(road1[1731][0]);
+                    else road1[i][0].swapCar(road1[1732][0]);
+                } else {                                  // edge case with going through
+                    if(!road1[0][0].getisCar() && !road1[1][0].getisCar())  road1[i][0].swapCar(road1[0][0]);
+
+
+
+
                 }
             }
-
-
-
-
         }
+
     }
 }
