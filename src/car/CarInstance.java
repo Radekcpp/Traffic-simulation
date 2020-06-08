@@ -9,7 +9,7 @@ public class CarInstance  {
     private DriverPersonality personality;
     private int destination;
 
-    CarInstance(int maxSpeedInc){
+    public CarInstance(){
         Random rand = new Random();
         int driverPersonality = rand.nextInt(3);
         int destinationInt = rand.nextInt(12);
@@ -22,7 +22,6 @@ public class CarInstance  {
             case 3:
                 this.personality = DriverPersonality.Passive;
         }
-        this.setMaxSpeed(maxSpeedInc);
         this.destination = destinationInt;
     }
 
