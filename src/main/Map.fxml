@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MapController">
+   <children>
+      <SplitPane dividerPositions="0.5811623246492986" layoutX="-4.0" layoutY="1.0" orientation="VERTICAL" prefHeight="1000.0" prefWidth="1200.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.23549201009251472" layoutX="6.0" layoutY="1.0" prefHeight="577.0" prefWidth="1191.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Pane fx:id="statistics" prefHeight="575.0" prefWidth="277.0" />
+                           </children></AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="575.0" fitWidth="906.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+                              <Button layoutX="766.0" layoutY="513.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="41.0" prefWidth="126.0" text="Wróć do menu" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="1189.0">
+               <children>
+                  <ScrollPane fx:id="roadClockWise" layoutY="34.0" prefHeight="143.0" prefWidth="1198.0" />
+                  <ScrollPane fx:id="roadCounterClockWise" layoutY="216.0" prefHeight="156.0" prefWidth="1198.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</Pane>

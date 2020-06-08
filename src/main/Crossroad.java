@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 public class Crossroad {
     private int crossroad_nr; //number 1-13 defining which crossroad it i
