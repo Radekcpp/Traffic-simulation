@@ -108,7 +108,7 @@ public class Road {
             if (road1[i][0].getisCar()) {
                 velocity = road1[i][0].getCar().getSpeed();
                 if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
-                if (i + velocity + 1 < 1732) {      //edge case without going through
+                if (i + velocity + 1 <= 1732) {      //edge case without going through
                     for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                         if (road1[i + v][0].getisCar()) {
                             road1[i][0].getCar().setSpeed(max(0, v - 2));
@@ -125,9 +125,13 @@ public class Road {
                         if (road1[i + v][0].getisCar()) {
                             road1[i][0].getCar().setSpeed(max(0, v - 2));
                             velocity = max(0, v - 2);
-                            if(velocity!=0 && !road1[0][0].getisCar())
-                                 road1[i][0].swapCar(road1[1732][0]);
                             break;
+                        }
+                        if(velocity!=0 && i+velocity<1732) {
+                            road1[i][0].swapCar(road1[i+velocity][0]);
+                        }
+                        if(velocity!=0 && !road1[0][0].getisCar()) {
+                            road1[i][0].swapCar(road1[1732][0]);
                         }
                     }
                 } else {                                  // edge case with going through
