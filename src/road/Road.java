@@ -98,6 +98,7 @@ public class Road {
 
                     // Random slow with given probability - needs to be done
 
+
                     if (velocity != 0)
                     road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
 

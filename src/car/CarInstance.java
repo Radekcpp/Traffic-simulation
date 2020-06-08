@@ -9,10 +9,11 @@ public class CarInstance  {
     private int maxSpeed;
     private DriverPersonality personality;
     private int destination;
-    private float slowProbability;
+    private int slowProbability;
 
     CarInstance(){
         Random rand = new Random();
+        this.slowProbability=1;
         int driverPersonality = rand.nextInt(3);
         int destinationInt = rand.nextInt(12);
         this.setSpeed(1);
@@ -24,6 +25,9 @@ public class CarInstance  {
             case 3:
                 this.personality = DriverPersonality.Defensive;
         }
+
+
+
         // probability changes according to weather
 
         //probability changes according to time of the day
