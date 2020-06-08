@@ -1,5 +1,7 @@
 package road;
 import java.util.Random;
+
+import car.CarInstance;
 import cell.*;
 
 import static java.lang.Math.max;
@@ -69,11 +71,23 @@ public class Road {
             road1[streetLightPoints[counter]][0].setType(RoadType.Lights);
             road1[streetLightPoints[counter]][1].setType(RoadType.Lights);
             road2[streetLightPoints[counter]+2][0].setType(RoadType.Lights);
-            road2[streetLightPoints[counter]+2][0].setType(RoadType.Lights);
+            road2[streetLightPoints[counter]+2][1].setType(RoadType.Lights);
             road1[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
             road1[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
             road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
-            road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
+            road2[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
+        }
+    }
+
+    void CreateCars (int quantity){  //create start amount of cars
+        Random position = new Random();
+        int carPosition = position.nextInt(1733);
+        for (int i = 0; i<quantity; i++){
+            while (road1[carPosition][0].getisCar()) {
+                carPosition = position.nextInt(1733);
+            }
+            road1[carPosition][0].setisCar(true);
+            road1[carPosition][0].setCar(new CarInstance());
         }
     }
     void move() { //function which moves car on the whole bypass, temporary version moving them in only one direction
