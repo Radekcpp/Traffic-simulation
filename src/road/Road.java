@@ -90,15 +90,15 @@ public class Road {
                         break;
                     }
 
-
-                    // Random slow with given probability - needs to be done
                 }
                 if(road1[i][0].getDistanceFromLights()<=10 && road1[i][0].getCar().getDestination()==road1[i][0].getNextCrossroad()) {
                     //FUNCTION TRY TO CHANGE LANE
                 }//change Lane to get to outer so car can leave
                 if(road1[i][1].getDistanceFromLights()<=velocity) //{ in future - LEAVE BYPASS}
 
-                if (velocity != 0)
+                    // Random slow with given probability - needs to be done
+
+                    if (velocity != 0)
                     road1[i][0].swapCar(road1[i + velocity][0]);//swap cells on positions i and i+velocity
 
 

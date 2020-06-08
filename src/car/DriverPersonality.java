@@ -2,6 +2,6 @@ package car;
 
 public enum DriverPersonality {
     Aggressive,
-    Passive,
+    Normal,
     Defensive,
 }

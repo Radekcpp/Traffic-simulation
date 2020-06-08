@@ -1,5 +1,6 @@
 package car;
 import cell.*;
+import road.Weather;
 
 import java.util.Random;
 
@@ -8,8 +9,9 @@ public class CarInstance  {
     private int maxSpeed;
     private DriverPersonality personality;
     private int destination;
+    private float slowProbability;
 
-    CarInstance(int maxSpeedInc){
+    CarInstance(){
         Random rand = new Random();
         int driverPersonality = rand.nextInt(3);
         int destinationInt = rand.nextInt(12);
@@ -18,12 +20,15 @@ public class CarInstance  {
             case 1:
                 this.personality = DriverPersonality.Aggressive;
             case 2:
-                this.personality = DriverPersonality.Defensive;
+                this.personality = DriverPersonality.Normal;
             case 3:
-                this.personality = DriverPersonality.Passive;
+                this.personality = DriverPersonality.Defensive;
         }
-        this.setMaxSpeed(maxSpeedInc);
-        this.destination = destinationInt;
+        // probability changes according to weather
+
+        //probability changes according to time of the day
+
+        this.destination = destinationInt+1;
     }
 
     public int getSpeed() { return this.speed; }
@@ -33,13 +38,15 @@ public class CarInstance  {
     public int getMaxSpeed() { return this.maxSpeed; }
 
     public void setMaxSpeed(int speedInc) {
-        this.maxSpeed = speedInc;
+
         switch (this.personality) {
             case Aggressive:
-                this.maxSpeed++;
+                this.maxSpeed=3;
+            case Normal:
+                this.maxSpeed=2;
             case Defensive:
-                if (this.maxSpeed>1)
-                    this.maxSpeed--;
+                this.maxSpeed=2;
+
         }
     }
 
