@@ -1,4 +1,4 @@
-package main;
+package cell;
 
 public class TrafficLights {
     private boolean Lights_color; //true - green, false - red

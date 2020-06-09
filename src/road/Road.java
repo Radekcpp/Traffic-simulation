@@ -117,6 +117,7 @@ public class Road {
         return true;
     }
 
+
     void stopOnRed (Cell[][] road, int posX, int posY){
         int velocity = road[posX][posY].getCar().getSpeed();
         for (int i = 0; i<= velocity; i++){
