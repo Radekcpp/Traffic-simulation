@@ -117,6 +117,16 @@ public class Road {
         return true;
     }
 
+    void stopOnRed (Cell[][] road, int posX, int posY){
+        int velocity = road[posX][posY].getCar().getSpeed();
+        for (int i = 0; i<= velocity; i++){
+            if(road[posX+i][posY].getType() == RoadType.Lights && !road[posX+i][posY].getTrafficLights().getLights_color()){
+                road[posX][posY].setMoved(true);
+                road[posX][posY].swapCar(road[posX+i][posY]);
+                road[posX][posY].getCar().setSpeed(0);
+            }
+        }
+    }
 
     void CreateCars (int quantity){  //create start amount of cars
         Random position = new Random();
