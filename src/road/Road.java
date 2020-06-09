@@ -8,6 +8,7 @@ import static java.lang.Math.max;
 
 
 public class Road {
+
     Cell[][] road1 = new Cell[1733][2];
     Cell[][] road2 = new Cell[1733][2];
     public static int[] streetLightPoints = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
@@ -83,6 +84,40 @@ public class Road {
         }
     }
 
+    void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
+        for (int i = 0; i<1733; i++){
+            for (int j = 0; j<1; j++){
+                road1[i][j].setMoved(false);
+                road2[i][j].setMoved(false);
+            }
+        }
+    }
+
+    boolean overtake (Cell[][] road, int posX, int posY){ //method to overtake, return true if it was successful, false if it wasn't and car didn't move as an arguments it takes indexes of current positions
+        int adjacentLane;
+        int velocity = road[posX][posY].getCar().getSpeed();
+        if (posY  == 0){   //if car is on right lane
+            adjacentLane = 1;
+        }
+        else{   //if car is on left lane - pos_y can be only 0 or 1
+            adjacentLane = 0;
+        }
+        if (road[posX][adjacentLane].getisCar()){ //if the adjacent cell is taken then return false
+            return false;
+        }
+        else{
+            for (int i = 1; i<=velocity; i++){
+                if (road[posX+i][adjacentLane].getisCar()){
+                    return false;
+                }
+            }
+            road[posX][posY].setMoved(true);
+            road[posX][posY].swapCar(road[posX+velocity][adjacentLane]);
+        }
+        return true;
+    }
+
+
     void CreateCars (int quantity){  //create start amount of cars
         Random position = new Random();
         int carPosition = position.nextInt(1733);
@@ -94,6 +129,7 @@ public class Road {
             road1[carPosition][0].setCar(new CarInstance());
         }
     }
+
     void move() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
@@ -122,6 +158,8 @@ public class Road {
                 }
             }
         }
+
+
         for (int i = 1728; i < 1733; i++) {       //forward movement in edge case (cars near end of bound, without traffic lights
             if (road1[i][0].getisCar()) {
                 velocity = road1[i][0].getCar().getSpeed();
