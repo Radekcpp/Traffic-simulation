@@ -191,7 +191,7 @@ public class MapController {
                 table1.add(rectangleSecond, i, 2, 1, 1);
             }
 
-            for (int i = 1733; i > begin - 1; i--) {
+            for (int i = 1732; i > begin - 1; i--) {
                 if (road1[i][0].getisCar())
                     rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
