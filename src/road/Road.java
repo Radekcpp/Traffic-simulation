@@ -138,15 +138,16 @@ public class Road {
         }
     }
 
-    void CreateCars (int quantity){  //create start amount of cars
+    void CreateCars (int quantity,Cell[][] road, int lane){  //create starting amount of cars
         Random position = new Random();
+
         int carPosition = (position.nextInt(866) * 2) + 1;
         for (int i = 0; i<quantity; i++){
-            while (road1[carPosition][0].getisCar()) {
+            while (road[carPosition][lane].getisCar()) {
                 carPosition = (position.nextInt(866) * 2) + 1;
             }
-            road1[carPosition][0].setisCar(true);
-            road1[carPosition][0].setCar(new CarInstance());
+            road[carPosition][lane].setisCar(true);
+            road[carPosition][lane].setCar(new CarInstance());
         }
     }
 
