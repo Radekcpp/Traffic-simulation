@@ -3,9 +3,11 @@ package main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -17,7 +19,14 @@ public class MapController {
     @FXML
     ScrollPane roadCounterClockWise;
     @FXML
-    Pane statistics;
+    public Label carsNumber;
+    @FXML
+    public Label avgSpeed;
+
+    public void Update() throws IOException{
+        //this.carsNumber.setText(TODO: get data from backend);
+        //this.avgSpeed.setText("TODO: get data from backend");
+    }
 
     public void BackToMenu(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -28,4 +37,5 @@ public class MapController {
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
     }
+
 }

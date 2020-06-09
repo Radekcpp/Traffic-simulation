@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.Text;
 import road.DayTime;
 import road.Weather;
 
@@ -45,5 +47,7 @@ public class MenuController {
         mapController.mainController = this.mainController;
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
+        mapController.Update();
     }
+
 }
