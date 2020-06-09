@@ -92,6 +92,38 @@ public class Road {
             road2[streetLightPointsClockwise[counter]+1][1].setCrossroad(new Crossroad(30));
         }
     }
+    void CarEntrance (Cell[][] road, int roadNumber){ //cars entrance on crossroads, roadNumber defines which road is given a argument
+        int position;
+        int amountOfCars;
+        for (int i = 1; i<13; i++) {
+            if(roadNumber == 1) {
+                position = streetLightPointsCounterClockwise[i];
+            }
+            else {
+                position = streetLightPointsClockwise[i];
+            }
+            if(!road[position][0].getTrafficLights().getLights_color()){
+                amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
+                if(amountOfCars > 1){
+                if(!road[position+1][0].getisCar()){
+                    road[position+1][0].setisCar(true);
+                    road[position+1][0].setCar(new CarInstance());
+                    road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                }
+                }
+                if(amountOfCars > 1) {
+                    if (!road[position + 1][1].getTrafficLights().getLights_color()) {
+                        road[position + 1][0].setisCar(true);
+                        road[position + 1][0].setCar(new CarInstance());
+                        amountOfCars = road[position + 1][0].getCrossroad().getAmountOfCars();
+                        road[position + 1][0].getCrossroad().setAmountOfCars(amountOfCars - 1);
+                    }
+                }
+            }
+        }
+    }
+
+
 
     void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
         for (int i = 0; i<1733; i++){
@@ -140,7 +172,6 @@ public class Road {
 
     void CreateCars (int quantity,Cell[][] road, int lane){  //create starting amount of cars
         Random position = new Random();
-
         int carPosition = (position.nextInt(866) * 2) + 1;
         for (int i = 0; i<quantity; i++){
             while (road[carPosition][lane].getisCar()) {
@@ -181,7 +212,7 @@ public class Road {
                         }
 
 
-                            //dicke
+                            //TODO:
                             // Random slow with given probability - needs to be done
                         if (velocity != 0) {
                             road1[i][j].setMoved(true);
@@ -337,4 +368,18 @@ public class Road {
             }
         }
     }
+
+    public void startSimulation(){
+        Road road = new Road();
+        road.CreateCars(25, road1, 0);
+        road.CreateCars(25, road1, 1);
+        road.CreateCars(25, road2, 0);
+        road.CreateCars(25, road2, 1);
+        while(true) {
+            road.moveRoad1();
+            road.moveRoad2();
+            road.ResetFlags();
+        }
+    }
+
 }
