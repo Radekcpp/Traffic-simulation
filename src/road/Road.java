@@ -11,6 +11,10 @@ public class Road {
     Cell[][] road1 = new Cell[1733][2];
     Cell[][] road2 = new Cell[1733][2];
     public static int[] streetLightPoints = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
+    public static String[] crossroads={"","Rondo Matecznego","Kamieńskiego i Tischnera","Podgórze SKA","Kuklińskiego",
+                            "Rondo Grzegórzeckie","Rondo Mogilskie","Wita Stwosza i Aleja 29 Listopada","Nowy Kleparz",
+                            "Plac Inwalidów","Czarnowiejska i aleja Adama Mickiewicza","Reymonta i aleja Adama Mickiewicza",
+                            "Stadion Cracovii", ""};
     public static Weather weather;
     public static DayTime dayTime;
     public int maxCapacity;
