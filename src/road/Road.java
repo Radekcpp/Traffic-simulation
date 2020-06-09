@@ -8,8 +8,8 @@ import static java.lang.Math.max;
 
 
 public class Road {
-    Cell[][] road1 = new Cell[1733][2];
-    Cell[][] road2 = new Cell[1733][2];
+    public static Cell[][] road1 = new Cell[1733][2];
+    public static Cell[][] road2 = new Cell[1733][2];
     public static int[] streetLightPoints = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
     public static String[] crossroads={"","Rondo Matecznego","Kamieńskiego i Tischnera","Podgórze SKA","Kuklińskiego",
                             "Rondo Grzegórzeckie","Rondo Mogilskie","Wita Stwosza i Aleja 29 Listopada","Nowy Kleparz",
@@ -117,7 +117,6 @@ public class Road {
                     //FUNCTION TRY TO CHANGE LANE
                 }//change Lane to get to outer so car can leave
                 if(road1[i][1].getDistanceFromLights()<=velocity) {//{ in future - LEAVE BYPASS}
-
                         // Random slow with given probability - needs to be done
                     }
                     if (velocity != 0) {
