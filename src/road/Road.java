@@ -84,6 +84,29 @@ public class Road {
             road2[streetLightPointsClockwise[counter]+1][1].setType(RoadType.Crossroad);
         }
     }
+    void CarEntrance (Cell[][] road){ //cars entrance on crossroads
+        int position;
+        int amountOfCars;
+        for (int i = 1; i<13; i++) {
+            position = streetLightPointsCounterClockwise[i];
+            if(!road[position][0].getTrafficLights().getLights_color()){
+                if(!road[position+1][0].getisCar()){
+                    road[position+1][0].setisCar(true);
+                    road[position+1][0].setCar(new CarInstance());
+                    amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
+                    road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                }
+                if(!road[position+1][1].getTrafficLights().getLights_color()){
+                    road[position+1][0].setisCar(true);
+                    road[position+1][0].setCar(new CarInstance());
+                    amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
+                    road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                }
+            }
+        }
+    }
+
+
 
     void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
         for (int i = 0; i<1733; i++){
@@ -129,6 +152,7 @@ public class Road {
             }
         }
     }
+
 
     void CreateCars (int quantity){  //create start amount of cars
         Random position = new Random();
@@ -201,7 +225,6 @@ public class Road {
                             velocity = max(0, v - 2);
                             break;
                         }
-
                     }
                     if(velocity!=0 && i+velocity<1732) {
                         road1[i][0].setMoved(true);
