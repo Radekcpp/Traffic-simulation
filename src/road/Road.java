@@ -151,12 +151,17 @@ public class Road {
                             velocity = max(0, v - 2);
                             break;
                         }
-                        if(velocity!=0 && i+velocity<1732) {
-                            road1[i][0].swapCar(road1[i+velocity][0]);
-                        }
-                        if(velocity!=0 && !road1[0][0].getisCar()) {
-                            road1[i][0].swapCar(road1[1732][0]);
-                        }
+
+                    }
+                    if(velocity!=0 && i+velocity<1732) {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[i+velocity][0]);
+                        break;
+                    }
+                    if(velocity!=0 && !road1[0][0].getisCar()) {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[1732][0]);
+                        break;
                     }
                     if (road1[0][0].getisCar()){
                         road1[i][0].setMoved(true);
