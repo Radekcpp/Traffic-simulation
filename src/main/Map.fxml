@@ -46,7 +46,7 @@
                                     </Label>
                                  </children></Pane>
                            </children></AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="474.0" prefWidth="718.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" onInputMethodTextChanged="#updateTrafficOrder" prefHeight="474.0" prefWidth="718.0">
                            <children>
                               <Button layoutX="547.0" layoutY="405.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="41.0" prefWidth="126.0" text="Wróć do menu" />
                               <ImageView fitHeight="443.0" fitWidth="531.0" layoutX="26.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
@@ -54,7 +54,7 @@
                                     <Image url="@img/map.png" />
                                  </image>
                               </ImageView>
-                              <ChoiceBox layoutX="516.0" layoutY="201.0" prefHeight="41.0" prefWidth="176.0" />
+                              <ChoiceBox fx:id="crossroadPick" layoutX="516.0" layoutY="201.0" onAction="#updateTrafficOrder" onInputMethodTextChanged="#updateTrafficOrder" prefHeight="41.0" prefWidth="176.0" />
                               <Text layoutX="492.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz odcinek drogi" wrappingWidth="224.8662109375">
                                  <font>
                                     <Font name="Alien Encounters" size="18.0" />
@@ -70,11 +70,11 @@
                <children>
                   <ScrollPane fx:id="roadClockWise" layoutY="99.0" prefHeight="143.0" prefWidth="1198.0" />
                   <ScrollPane fx:id="roadCounterClockWise" layoutY="286.0" prefHeight="156.0" prefWidth="1198.0" />
-                  <Text layoutX="392.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Odcinek Drogi" wrappingWidth="414.13671875">
+                  <Label fx:id="trafficOrder" alignment="CENTER" layoutX="35.0" layoutY="20.0" prefHeight="64.0" prefWidth="1139.0" text="Ląbel">
                      <font>
-                        <Font name="Asimov" size="67.0" />
+                        <Font size="35.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </AnchorPane>
         </items>
