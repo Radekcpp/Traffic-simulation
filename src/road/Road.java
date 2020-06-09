@@ -383,11 +383,4 @@ public class Road {
         }
     }
 
-    public void startSimulation(){
-        Road road = new Road();
-        road.CreateCars(25);
-
-
-
-    }
 }
