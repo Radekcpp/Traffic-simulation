@@ -84,23 +84,32 @@ public class Road {
             road2[streetLightPointsClockwise[counter]+1][1].setType(RoadType.Crossroad);
         }
     }
-    void CarEntrance (Cell[][] road){ //cars entrance on crossroads
+    void CarEntrance (Cell[][] road, int roadNumber){ //cars entrance on crossroads, roadNumber defines which road is given a argument
         int position;
         int amountOfCars;
         for (int i = 1; i<13; i++) {
-            position = streetLightPointsCounterClockwise[i];
+            if(roadNumber == 1) {
+                position = streetLightPointsCounterClockwise[i];
+            }
+            else {
+                position = streetLightPointsClockwise[i];
+            }
             if(!road[position][0].getTrafficLights().getLights_color()){
+                amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
+                if(amountOfCars > 1){
                 if(!road[position+1][0].getisCar()){
                     road[position+1][0].setisCar(true);
                     road[position+1][0].setCar(new CarInstance());
-                    amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
                     road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
                 }
-                if(!road[position+1][1].getTrafficLights().getLights_color()){
-                    road[position+1][0].setisCar(true);
-                    road[position+1][0].setCar(new CarInstance());
-                    amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
-                    road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                }
+                if(amountOfCars > 1) {
+                    if (!road[position + 1][1].getTrafficLights().getLights_color()) {
+                        road[position + 1][0].setisCar(true);
+                        road[position + 1][0].setCar(new CarInstance());
+                        amountOfCars = road[position + 1][0].getCrossroad().getAmountOfCars();
+                        road[position + 1][0].getCrossroad().setAmountOfCars(amountOfCars - 1);
+                    }
                 }
             }
         }
@@ -253,5 +262,13 @@ public class Road {
                 }
             }
         }
+    }
+
+    public void startSimulation(){
+        Road road = new Road();
+        road.CreateCars(25);
+
+
+
     }
 }
