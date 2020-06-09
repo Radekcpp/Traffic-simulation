@@ -56,6 +56,8 @@ public class Cell {
         return speedLimit;
     }
 
+    public int getNextCrossroad() {return nextCrossroad;}
+
     public int getDistanceFromLights() {
         return distanceFromLights;
     }

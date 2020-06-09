@@ -148,6 +148,11 @@ public class Road {
                             break;
                         }
 
+                }
+                if(road1[i][0].getDistanceFromLights()<=10 && road1[i][0].getCar().getDestination()==road1[i][0].getNextCrossroad()) {
+                    //FUNCTION TRY TO CHANGE LANE
+                }//change Lane to get to outer so car can leave
+                if(road1[i][1].getDistanceFromLights()<=velocity) {//{ in future - LEAVE BYPASS}
 
                         // Random slow with given probability - needs to be done
                     }
@@ -164,14 +169,13 @@ public class Road {
             if (road1[i][0].getisCar()) {
                 velocity = road1[i][0].getCar().getSpeed();
                 if (velocity < road1[i][0].getCar().getMaxSpeed()) velocity++;
-                if (i + velocity + 1 < 1732) {      //edge case without going through
+                if (i + velocity + 1 <= 1732) {      //edge case without going through
                     for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                         if (road1[i + v][0].getisCar()) {
                             road1[i][0].getCar().setSpeed(max(0, v - 2));
                             velocity = max(0, v - 2);
                             break;
                         }
-
                     }
                     if (velocity != 0) {
                         road1[i][0].setMoved(true);
@@ -185,6 +189,17 @@ public class Road {
                             velocity = max(0, v - 2);
                             break;
                         }
+
+                    }
+                    if(velocity!=0 && i+velocity<1732) {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[i+velocity][0]);
+                        break;
+                    }
+                    if(velocity!=0 && !road1[0][0].getisCar()) {
+                        road1[i][0].setMoved(true);
+                        road1[i][0].swapCar(road1[1732][0]);
+                        break;
                     }
                     if (road1[0][0].getisCar()){
                         road1[i][0].setMoved(true);
