@@ -1,7 +1,8 @@
-package main;
+package cell;
 
 public class TrafficLights {
     private boolean Lights_color; //true - green, false - red
+    private int timer;
 
     public TrafficLights(boolean color){
         this.Lights_color = color;
@@ -15,7 +16,7 @@ public class TrafficLights {
     }
 
     public void Change_color(){
-        Lights_color = !this.Lights_color;
+        this.Lights_color = !this.Lights_color;
     }
 
 

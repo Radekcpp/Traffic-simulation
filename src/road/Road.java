@@ -8,6 +8,9 @@ import static java.lang.Math.max;
 
 
 public class Road {
+
+    public static int[] streetLightPointsCounterClockwise = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
+    public static int[] streetLightPointsClockwise = new int[]{0,170,240,276,326,451,559,751,883,1133,1262,1444,1521,1733};
     public static Cell[][] road1 = new Cell[1733][2];
     public static Cell[][] road2 = new Cell[1733][2];
     public static int[] streetLightPoints = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
@@ -25,7 +28,7 @@ public class Road {
         int weatherInt = rand.nextInt(3);
         int dayTimeInt = rand.nextInt(3);
         int nextLight1 = 1;
-        int nextLight2 = 0;
+        int nextLight2 = 1;
 
         switch (weatherInt) {
             case 1:
@@ -52,10 +55,10 @@ public class Road {
         }
 
         for (var counter = 0; counter < 1733; counter++) {
-            road1[counter][0] = new Cell(RoadType.Basic, streetLightPoints[nextLight1] - counter, nextLight1);
-            road1[counter][1] = new Cell(RoadType.Basic, streetLightPoints[nextLight1] - counter, nextLight1);
-            road2[counter][0] = new Cell(RoadType.Basic, counter - streetLightPoints[nextLight2], nextLight2);
-            road2[counter][1] = new Cell(RoadType.Basic, counter - streetLightPoints[nextLight2], nextLight2);
+            road1[counter][0] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
+            road1[counter][1] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
+            road2[counter][0] = new Cell(RoadType.Basic, counter - streetLightPointsClockwise[nextLight2], nextLight2);
+            road2[counter][1] = new Cell(RoadType.Basic, counter - streetLightPointsClockwise[nextLight2], nextLight2);
 
             if (counter>1281 && counter<1563) {
                 road1[counter][0].setSpeedLimit(2);
@@ -64,22 +67,67 @@ public class Road {
                 road2[counter][1].setSpeedLimit(2);
             }
 
-            if (streetLightPoints[nextLight1]==counter)
+            if (streetLightPointsCounterClockwise[nextLight1]==counter)
                 nextLight1++;
 
-            if (streetLightPoints[nextLight2]==counter)
+            if (streetLightPointsClockwise[nextLight2]==counter)
                 nextLight2++;
         }
 
-        for (var counter = 0; counter < (streetLightPoints.length-1); counter++) {
-            road1[streetLightPoints[counter]][0].setType(RoadType.Lights);
-            road1[streetLightPoints[counter]][1].setType(RoadType.Lights);
-            road2[streetLightPoints[counter]+2][0].setType(RoadType.Lights);
-            road2[streetLightPoints[counter]+2][1].setType(RoadType.Lights);
-            road1[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
-            road1[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
-            road2[streetLightPoints[counter]+1][0].setType(RoadType.Crossroad);
-            road2[streetLightPoints[counter]+1][1].setType(RoadType.Crossroad);
+        for (var counter = 1; counter < (streetLightPointsCounterClockwise.length-1); counter++) {
+            road1[streetLightPointsCounterClockwise[counter]][0].setType(RoadType.Lights);
+            road1[streetLightPointsCounterClockwise[counter]][1].setType(RoadType.Lights);
+            road2[streetLightPointsClockwise[counter]][0].setType(RoadType.Lights);
+            road2[streetLightPointsClockwise[counter]][1].setType(RoadType.Lights);
+            road1[streetLightPointsCounterClockwise[counter]+1][0].setType(RoadType.Crossroad);
+            road1[streetLightPointsCounterClockwise[counter]+1][1].setType(RoadType.Crossroad);
+            road2[streetLightPointsClockwise[counter]+1][0].setType(RoadType.Crossroad);
+            road2[streetLightPointsClockwise[counter]+1][1].setType(RoadType.Crossroad);
+        }
+    }
+
+    void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
+        for (int i = 0; i<1733; i++){
+            for (int j = 0; j<1; j++){
+                road1[i][j].setMoved(false);
+                road2[i][j].setMoved(false);
+            }
+        }
+    }
+
+    boolean overtake (Cell[][] road, int posX, int posY){ //method to overtake, return true if it was successful, false if it wasn't and car didn't move as an arguments it takes indexes of current positions
+        int adjacentLane;
+        int velocity = road[posX][posY].getCar().getSpeed();
+        if (posY  == 0){   //if car is on right lane
+            adjacentLane = 1;
+        }
+        else{   //if car is on left lane - pos_y can be only 0 or 1
+            adjacentLane = 0;
+        }
+        if (road[posX][adjacentLane].getisCar()){ //if the adjacent cell is taken then return false
+            return false;
+        }
+        else{
+            for (int i = 1; i<=velocity; i++){
+                if (road[posX+i][adjacentLane].getisCar()){
+                    return false;
+                }
+            }
+            road[posX][posY].setMoved(true);
+            road[posX][posY].swapCar(road[posX+velocity][adjacentLane]);
+        }
+        return true;
+    }
+
+
+    void stopOnRed (Cell[][] road, int posX, int posY){
+        int velocity = road[posX][posY].getCar().getSpeed();
+        for (int i = 0; i<= velocity; i++){
+            if(road[posX+i][posY].getType() == RoadType.Lights && !road[posX+i][posY].getTrafficLights().getLights_color()){
+                road[posX][posY].setMoved(true);
+                road[posX][posY].swapCar(road[posX+i][posY]);
+                road[posX][posY].getCar().setSpeed(0);
+            }
         }
     }
 
@@ -94,6 +142,7 @@ public class Road {
             road1[carPosition][0].setCar(new CarInstance());
         }
     }
+
     void move() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
@@ -116,7 +165,8 @@ public class Road {
                 if(road1[i][0].getDistanceFromLights()<=10 && road1[i][0].getCar().getDestination()==road1[i][0].getNextCrossroad()) {
                     //FUNCTION TRY TO CHANGE LANE
                 }//change Lane to get to outer so car can leave
-                if(road1[i][1].getDistanceFromLights()<=velocity) {//{ in future - LEAVE BYPASS}
+                if(road1[i][1].getDistanceFromLights()<=velocity && road1[i][0].getCar().getDestination()==road1[i][0].getNextCrossroad()) {//{ in future - LEAVE BYPASS}
+
                         // Random slow with given probability - needs to be done
                     }
                     if (velocity != 0) {
@@ -126,6 +176,8 @@ public class Road {
                 }
             }
         }
+
+
         for (int i = 1728; i < 1733; i++) {       //forward movement in edge case (cars near end of bound, without traffic lights
             if (road1[i][0].getisCar()) {
                 velocity = road1[i][0].getCar().getSpeed();

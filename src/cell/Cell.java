@@ -7,6 +7,8 @@ public class Cell {
     private boolean moved; //false - cell wasn't moved yet, true - cell was moved in this iteration
     private RoadType type; // 1 - basic road, 2 - crossroad, 3 - traffic lights
     private CarInstance car;
+    private TrafficLights trafficLights;
+    private Crossroad crossroad;
     private int speedLimit; //speed limit on this road
     private int distanceFromLights; //distance from the nearest traffic lights
     private int nextCrossroad; //number 0-12 defining which crossroad is next
@@ -23,6 +25,14 @@ public class Cell {
         setNextCrossroad(nextCrossroadInc);
         setMoved(false);
     }
+
+    public Crossroad getCrossroad() { return crossroad;}
+
+    public void setCrossroad(Crossroad crossroad) {this.crossroad = crossroad;}
+
+    public TrafficLights getTrafficLights() { return trafficLights;}
+
+    public void setTrafficLights(TrafficLights trafficLights) { this.trafficLights = trafficLights; }
 
     public void setMoved(boolean moved) {this.moved = moved;}
 
