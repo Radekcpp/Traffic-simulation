@@ -338,4 +338,17 @@ public class Road {
             }
         }
     }
+
+    public void startSimulation(){
+        Road road = new Road();
+        road.CreateCars(25, road1, 0);
+        road.CreateCars(25, road1, 1);
+        road.CreateCars(25, road2, 0);
+        road.CreateCars(25, road2, 1);
+        while(true) {
+            road.moveRoad1();
+            road.moveRoad2();
+            road.ResetFlags();
+        }
+    }
 }
