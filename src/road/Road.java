@@ -127,7 +127,7 @@ public class Road {
 
     public void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
         for (int i = 0; i<1733; i++){
-            for (int j = 0; j<1; j++){
+            for (int j = 0; j<2; j++){
                 road1[i][j].setMoved(false);
                 road2[i][j].setMoved(false);
             }

@@ -203,6 +203,10 @@ public class MapController {
         Rectangle rectangleSecond;
 
         if (specialCase){
+            int firstIterator = 0;
+            int secondIterator = 0;
+            int thirdIterator = 0;
+            int fourthIterator = 0;
             for (int i = beginClockwise; i < streetLightPointsClockwise[13]; i++) {
                 if (road2[i][0].getisCar())
                     rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
@@ -212,9 +216,10 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                firstIterator++;
 
-                table2.add(rectangleFirst, i, 1, 1, 1);
-                table2.add(rectangleSecond, i, 2, 1, 1);
+                table2.add(rectangleFirst, firstIterator, 1, 1, 1);
+                table2.add(rectangleSecond, firstIterator, 2, 1, 1);
             }
 
             for (int i = streetLightPointsClockwise[0]; i < streetLightPointsClockwise[1]; i++) {
@@ -226,9 +231,10 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                secondIterator++;
 
-                table2.add(rectangleFirst, i, 1, 1, 1);
-                table2.add(rectangleSecond, i, 2, 1, 1);
+                table2.add(rectangleFirst, secondIterator, 1, 1, 1);
+                table2.add(rectangleSecond, secondIterator, 2, 1, 1);
             }
 
             for (int i = streetLightPointsCounterClockwise[1]; i > streetLightPointsCounterClockwise[0]; i--) {
@@ -240,9 +246,10 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                thirdIterator++;
 
-                table1.add(rectangleFirst, i, 1, 1, 1);
-                table1.add(rectangleSecond, i, 2, 1, 1);
+                table1.add(rectangleFirst, thirdIterator, 1, 1, 1);
+                table1.add(rectangleSecond, thirdIterator, 2, 1, 1);
             }
 
             for (int i = 1732; i > beginCounterClockwise - 1; i--) {
@@ -254,9 +261,10 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                fourthIterator++;
 
-                table1.add(rectangleFirst, i, 1, 1, 1);
-                table1.add(rectangleSecond, i, 2, 1, 1);
+                table1.add(rectangleFirst, fourthIterator, 1, 1, 1);
+                table1.add(rectangleSecond, fourthIterator, 2, 1, 1);
             }
         }
         else {
