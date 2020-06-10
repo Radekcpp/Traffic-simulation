@@ -12,6 +12,7 @@ public class Road {
 
     public static int[] streetLightPointsCounterClockwise = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
     public static int[] streetLightPointsClockwise = new int[]{0,170,240,276,326,451,559,751,883,1133,1262,1444,1521,1733};
+    public static Settings settings;
     public static Cell[][] road1 = new Cell[1733][2];
     public static Cell[][] road2 = new Cell[1733][2];
     public static String[] crossroads={"","Rondo Matecznego","Kamieńskiego i Tischnera","Podgórze SKA","Kuklińskiego",
@@ -372,16 +373,10 @@ public class Road {
         Integer speed = 0;
         for (int i = 0; i < 2; i++){
             for (int j = 0; j<1733; j++){
-                try {
                     if (road1[j][i].getisCar()) {
                         counter++;
                         speed += road1[j][i].getCar().getSpeed();
                     }
-                }
-                catch(NullPointerException ex){
-                    var temp = road1[j][i];
-                    System.out.println("test");
-                }
                 if (road2[j][i].getisCar()) {
                     counter++;
                     speed += road2[j][i].getCar().getSpeed();
@@ -393,12 +388,12 @@ public class Road {
         return String.format("%.2f", finalValue);
     }
 
-    public void startSimulation(Road road, Settings settings){
-        var capacity = settings.carNumber/4;
-        road.CreateCars(capacity, road1, 0);
-        road.CreateCars(capacity, road1, 1);
-        road.CreateCars(capacity, road2, 0);
-        road.CreateCars(capacity, road2, 1);
+    public void startSimulation(Road road){
+        var number = Settings.carNumber/4;
+        road.CreateCars(number, road1, 0);
+        road.CreateCars(number, road1, 1);
+        road.CreateCars(number, road2, 0);
+        road.CreateCars(number, road2, 1);
     }
 
 }
