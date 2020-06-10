@@ -166,7 +166,8 @@ public class Road {
                 } else {
                     if (road1[i][j].getisCar()) {
                         velocity = road1[i][j].getCar().getSpeed();
-                        if (velocity < road1[i][j].getCar().getMaxSpeed()) velocity++;
+                        if (velocity < road1[i][j].getCar().getMaxSpeed())
+                            velocity++;
                         for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                             if (road1[i + v][j].getisCar()) {
                                 road1[i][j].getCar().setSpeed(max(0, v - 2));

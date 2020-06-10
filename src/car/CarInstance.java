@@ -17,16 +17,20 @@ public class CarInstance  {
         int driverPersonality = rand.nextInt(3);
         int destinationInt = rand.nextInt(12);
         this.setSpeed(1);
+        var personality = DriverPersonality.Normal;
         switch (driverPersonality) {
+            case 0:
+                personality = DriverPersonality.Aggressive;
+                break;
             case 1:
-                this.personality = DriverPersonality.Aggressive;
+                personality = DriverPersonality.Normal;
+                break;
             case 2:
-                this.personality = DriverPersonality.Normal;
-            case 3:
-                this.personality = DriverPersonality.Defensive;
+                personality = DriverPersonality.Defensive;
+                break;
         }
-
-
+        this.personality = personality;
+        this.setMaxSpeed(personality);
 
         // probability changes according to weather
 
@@ -41,16 +45,18 @@ public class CarInstance  {
 
     public int getMaxSpeed() { return this.maxSpeed; }
 
-    public void setMaxSpeed(int speedInc) {
-
+    public void setMaxSpeed(DriverPersonality driverPersonality) {
+        System.out.println("test");
         switch (this.personality) {
             case Aggressive:
                 this.maxSpeed=3;
+                break;
             case Normal:
                 this.maxSpeed=2;
+                break;
             case Defensive:
                 this.maxSpeed=2;
-
+                break;
         }
     }
 
