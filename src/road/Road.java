@@ -277,7 +277,7 @@ public class Road {
                                 road2[i][0].getisCar() &&
                                 road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
                             // try to change Lane to get to outer so car can leave
-                            if(!overtake(road2,i,0) && road2[i][0].getCar().getSpeed()>1){
+                            if(!overtake(road2,i,0)){
                                 road2[i][0].getCar().setSpeed(1);
                             }
                             else
