@@ -46,7 +46,6 @@ public class CarInstance  {
     public int getMaxSpeed() { return this.maxSpeed; }
 
     public void setMaxSpeed(DriverPersonality driverPersonality) {
-        System.out.println("test");
         switch (this.personality) {
             case Aggressive:
                 this.maxSpeed=3;
