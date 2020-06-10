@@ -139,7 +139,6 @@ public class Road {
         int velocity = road[posX][posY].getCar().getSpeed();
         for (int i = 1; i<= velocity; i++){
             if(road[posX+i][posY].getType() == RoadType.Lights && !road[posX+i][posY].getTrafficLights().getLights_color()){
-                road[posX][posY].setMoved(true);
                 road[posX][posY].swapCar(road[posX][posY],road[posX+i-1][posY]);
                 road[posX][posY].getCar().setSpeed(0);
             }
@@ -170,8 +169,12 @@ public class Road {
                         velocity = road1[i][j].getCar().getSpeed();
                         if (velocity < road1[i][j].getCar().getMaxSpeed())
                             velocity++;
+                        road1[i][j].getCar().setSpeed(velocity);
                         for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                             if (road1[i + v][j].getisCar()) {
+                                if(overtake(road1,i,j)){
+                                      continue;
+                                }
                                 road1[i][j].getCar().setSpeed(max(0, v - 2));
                                 velocity = max(0, v - 2);
                                 break;
@@ -191,7 +194,11 @@ public class Road {
                         /*if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
                             //{ in future - LEAVE BYPASS}
                         }*/
-
+                        if(velocity>=road1[i][j].getDistanceFromLights())
+                        {
+                            stopOnRed(road1,i,j);
+                            break;
+                        }
 
                             //TODO:
                             // Random slow with given probability - needs to be done
@@ -266,8 +273,12 @@ public class Road {
                     if (road2[i][j].getisCar()) {
                         velocity = road2[i][j].getCar().getSpeed();
                         if (velocity < road2[i][j].getCar().getMaxSpeed()) velocity++;
+                        road1[i][j].getCar().setSpeed(velocity);
                         for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                             if (road2[i + v][j].getisCar()) {
+                                if(overtake(road2,i,j)){
+                                    continue;
+                                }
                                 road2[i][j].getCar().setSpeed(max(0, v - 2));
                                 velocity = max(0, v - 2);
                                 break;
@@ -288,7 +299,11 @@ public class Road {
 //                            //{ in future - LEAVE BYPASS}
 //                        }
 
-
+                        if(velocity>=road2[i][j].getDistanceFromLights())
+                        {
+                            stopOnRed(road2,i,j);
+                            break;
+                        }
                         //TODO:
                         // Random slow with given probability - needs to be done
                         if (velocity != 0) {
