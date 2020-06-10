@@ -22,6 +22,7 @@ public class Main extends Application {
         Road road=new Road();
 
         Parent root = FXMLLoader.load(Main.class.getResource("sample.fxml"));
+
         primaryStage.setTitle("Druga Obwodnica Krakowa");
         Scene scene = new Scene(root, 1200, 1000);
         primaryStage.setScene(scene);
