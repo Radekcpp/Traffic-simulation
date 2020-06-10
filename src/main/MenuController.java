@@ -14,10 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.Text;
 import road.DayTime;
+import road.Road;
 import road.Weather;
 
 public class MenuController {
     public MainController mainController;
+    public MapController mapController;
     public Settings settings;
     ObservableList<String> weatherList = FXCollections.observableArrayList("Słońce", "Deszcz", "Śnieg");
     ObservableList<String> dayTimeList = FXCollections.observableArrayList("Rano", "Południe","Wieczór","Noc");
@@ -36,7 +38,7 @@ public class MenuController {
     }
 
     @FXML
-    public void Start(ActionEvent actionEvent) throws IOException {
+    public void Start(ActionEvent actionEvent) throws IOException, InterruptedException {
         settings = new Settings();
         settings.updateSettings((String) weather.getValue(), (String)time.getValue());
 
@@ -45,8 +47,11 @@ public class MenuController {
         Pane pane = loader.load();
         MapController mapController = loader.getController();
         mapController.mainController = this.mainController;
+        this.mapController = mapController;
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
+        mapController.road = new Road();
+        mapController.road.startSimulation(mapController.road);
         mapController.Update();
     }
 

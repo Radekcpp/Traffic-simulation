@@ -125,7 +125,7 @@ public class Road {
 
 
 
-    void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
+    public void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
         for (int i = 0; i<1733; i++){
             for (int j = 0; j<1; j++){
                 road1[i][j].setMoved(false);
@@ -182,7 +182,7 @@ public class Road {
         }
     }
 
-    void moveRoad1() { //function which moves car on the whole bypass, temporary version moving them in only one direction
+    public void moveRoad1() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
         for(int j=0;j<2;j++) {
@@ -199,17 +199,18 @@ public class Road {
                                 velocity = max(0, v - 2);
                                 break;
                             }
-
                         }
+                        if (road1[i][j].getCar() == null)
+                            System.out.println("now");
                         if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
                             // try to change Lane to get to outer so car can leave
                             if(!overtake(road1,i,0) && road1[i][0].getCar().getSpeed()>1){
                                 road1[i][0].getCar().setSpeed(1);
                             }
                         }
-                        if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
+                        /*if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
                             //{ in future - LEAVE BYPASS}
-                        }
+                        }*/
 
 
                             //TODO:
@@ -261,21 +262,24 @@ public class Road {
                         if (road1[0][j].getisCar()) {
                             road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[1731][j]);
+                            break;
                         } else {
                             road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[1732][j]);
+                            break;
                         }
                     } else {                                  // edge case with going through
                         if (!road1[0][j].getisCar() && !road1[1][j].getisCar()) {
                             road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[0][j]);
+                            break;
                         }
                     }
                 }
             }
         }
     }
-    void moveRoad2() { //function which moves car on the whole bypass, temporary version moving them in only one direction
+    public void moveRoad2() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
         for(int j=0;j<2;j++) {
@@ -294,18 +298,20 @@ public class Road {
                             }
 
                         }
-                        if (road2[i][0].getDistanceFromLights() <= 10 && road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
+                        if (road2[i][0].getDistanceFromLights() <= 10 &&
+                                road2[i][0].getCar() != null &&
+                                road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
                             // try to change Lane to get to outer so car can leave
                             if(!overtake(road2,i,0) && road2[i][0].getCar().getSpeed()>1){
                                 road2[i][0].getCar().setSpeed(1);
                             }
                         }
-                        if (road2[i][1].getDistanceFromLights() <= velocity && road2[i][1].getCar().getDestination() == road2[i][1].getNextCrossroad()) {
-                            //{ in future - LEAVE BYPASS}
-                        }
+//                        if (road2[i][1].getDistanceFromLights() <= velocity && road2[i][1].getCar().getDestination() == road2[i][1].getNextCrossroad()) {
+//                            //{ in future - LEAVE BYPASS}
+//                        }
 
 
-                        //dicke
+                        //TODO:
                         // Random slow with given probability - needs to be done
                         if (velocity != 0) {
                             road2[i][j].setMoved(true);
@@ -369,17 +375,11 @@ public class Road {
         }
     }
 
-    public void startSimulation(){
-        Road road = new Road();
+    public void startSimulation(Road road){
         road.CreateCars(25, road1, 0);
         road.CreateCars(25, road1, 1);
         road.CreateCars(25, road2, 0);
         road.CreateCars(25, road2, 1);
-        while(true) {
-            road.moveRoad1();
-            road.moveRoad2();
-            road.ResetFlags();
-        }
     }
 
 }

@@ -12,8 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import road.Road;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static road.Road.*;
 
@@ -43,16 +45,23 @@ public class MapController {
     public int endCounterClockwise;
     public int beginClockwise;
     public int endClockwise;
+    public Road road;
 
-    public void initialize(){
+    public void initialize() throws IOException, InterruptedException {
         crossroadPick.setValue(crossroadList.get(0));
         crossroadPick.setItems(crossroadList);
     }
 
-    public void Update() throws IOException{
+    public void Update() throws IOException, InterruptedException {
         //this.carsNumber.setText(TODO: get data from backend);
         //this.avgSpeed.setText("TODO: get data from backend");
-        draw();
+        while(true) {
+            this.road.moveRoad1();
+           // this.road.moveRoad2();
+            this.road.ResetFlags();
+            TimeUnit.MILLISECONDS.sleep(100);
+            draw();
+        }
     }
 
     public void updateTrafficOrder() throws IOException {

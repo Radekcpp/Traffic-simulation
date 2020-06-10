@@ -92,8 +92,6 @@ public class Cell {
         cell.setisCar(true);
         this.setMoved(false);
         cell.setMoved(true);
-
     }
-
 }
 
