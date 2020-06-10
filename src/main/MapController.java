@@ -62,7 +62,7 @@ public class MapController {
                 this.road.moveRoad1();
                 this.road.moveRoad2();
                 carsNumber.setText(road.carsOnRoad());
-                //avgSpeed.setText(road.averageSpeed());
+                avgSpeed.setText(road.averageSpeed());
                 this.road.ResetFlags();
                 draw();
             }));
