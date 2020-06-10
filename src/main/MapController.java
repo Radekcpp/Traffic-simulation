@@ -1,5 +1,7 @@
 package main;
 
+import cell.RoadType;
+import cell.TrafficLights;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -10,9 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import road.Road;
@@ -210,14 +214,38 @@ public class MapController {
             int thirdIterator = 0;
             int fourthIterator = 0;
             for (int i = beginClockwise; i < streetLightPointsClockwise[13]; i++) {
-                if (road2[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road2[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
+
+                if (road2[i][0].getType() == RoadType.Lights) {
+                    if (road2[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road2[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+
+                }
+
+                if (road2[i][1].getType() == RoadType.Lights) {
+                    if (road2[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road2[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
+
+
+
                 firstIterator++;
 
                 table2.add(rectangleFirst, firstIterator, 1, 1, 1);
@@ -225,14 +253,35 @@ public class MapController {
             }
 
             for (int i = streetLightPointsClockwise[0]; i < streetLightPointsClockwise[1]; i++) {
-                if (road2[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road2[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
+
+                if (road2[i][0].getType() == RoadType.Lights) {
+                    if (road2[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road2[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+
+                }
+
+                if (road2[i][1].getType() == RoadType.Lights) {
+                    if (road2[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road2[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
                 secondIterator++;
 
                 table2.add(rectangleFirst, secondIterator, 1, 1, 1);
@@ -240,14 +289,35 @@ public class MapController {
             }
 
             for (int i = streetLightPointsCounterClockwise[1]; i > streetLightPointsCounterClockwise[0]; i--) {
-                if (road1[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road1[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
+
+                if (road1[i][0].getType() == RoadType.Lights) {
+                    if (road1[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road1[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car1.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+
+                }
+
+                if (road2[i][1].getType() == RoadType.Lights) {
+                    if (road2[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road2[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car1.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
                 thirdIterator++;
 
                 table1.add(rectangleFirst, thirdIterator, 1, 1, 1);
@@ -255,14 +325,34 @@ public class MapController {
             }
 
             for (int i = 1732; i > beginCounterClockwise - 1; i--) {
-                if (road1[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road1[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
+
+                if (road1[i][0].getType() == RoadType.Lights) {
+                    if (road1[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road1[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car1.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+                }
+
+                if (road2[i][1].getType() == RoadType.Lights) {
+                    if (road2[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road2[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
                 fourthIterator++;
 
                 table1.add(rectangleFirst, fourthIterator, 1, 1, 1);
@@ -273,15 +363,35 @@ public class MapController {
             int firstIterator = 0;
             int secondIterator = 0;
             for (int i = beginClockwise; i < endClockwise; i++) {
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
 
-                if (road2[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road2[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                if (road2[i][0].getType() == RoadType.Lights) {
+                    if (road2[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road2[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+
+                }
+
+                if (road2[i][1].getType() == RoadType.Lights) {
+                    if (road2[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road2[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
                 firstIterator++;
 
                 table2.add(rectangleFirst, firstIterator, 1, 1, 1);
@@ -289,14 +399,35 @@ public class MapController {
             }
 
             for (int i = endCounterClockwise; i > beginCounterClockwise -1; i--) {
-                if (road1[i][0].getisCar())
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
-                if (road1[i][1].getisCar())
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
-                else
-                    rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                rectangleFirst = new Rectangle(63,63);
+                rectangleSecond = new Rectangle(63,63);
+
+                if (road1[i][0].getType() == RoadType.Lights) {
+                    if (road1[i][0].getTrafficLights().getLights_color())
+                        rectangleFirst.setFill(Color.GREEN);
+                    else
+                        rectangleFirst.setFill(Color.RED);
+                }
+                else {
+                    if (road1[i][0].getisCar())
+                        rectangleFirst.setFill(new ImagePattern(new Image("/main/img/car1.png")));
+                    else
+                        rectangleFirst.setFill(Color.BLACK);
+
+                }
+
+                if (road1[i][1].getType() == RoadType.Lights) {
+                    if (road1[i][1].getTrafficLights().getLights_color())
+                        rectangleSecond.setFill(Color.GREEN);
+                    else
+                        rectangleSecond.setFill(Color.RED);
+                } else {
+                    if (road1[i][1].getisCar())
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car1.png")));
+                    else
+                        rectangleSecond.setFill(Color.BLACK);
+                }
+
                 secondIterator++;
 
                 table1.add(rectangleFirst, secondIterator, 1, 1, 1);

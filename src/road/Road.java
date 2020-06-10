@@ -395,7 +395,7 @@ public class Road {
 
     public void startSimulation(Road road, Settings settings){
         var capacity = settings.carNumber/4;
-        road.CreateCars(capacity , road1, 0);
+        road.CreateCars(capacity, road1, 0);
         road.CreateCars(capacity, road1, 1);
         road.CreateCars(capacity, road2, 0);
         road.CreateCars(capacity, road2, 1);
