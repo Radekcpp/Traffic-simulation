@@ -20,7 +20,7 @@ import road.Weather;
 public class MenuController {
     public MainController mainController;
     public MapController mapController;
-    public Settings settings;
+    public static Settings settings;
     ObservableList<String> weatherList = FXCollections.observableArrayList("Słońce", "Deszcz", "Śnieg");
     ObservableList<String> dayTimeList = FXCollections.observableArrayList("Rano", "Południe","Wieczór","Noc");
 
@@ -51,7 +51,7 @@ public class MenuController {
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
         mapController.road = new Road();
-        mapController.road.startSimulation(mapController.road);
+        mapController.road.startSimulation(mapController.road, settings);
         mapController.Update();
     }
 

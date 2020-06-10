@@ -3,6 +3,7 @@ import java.util.Random;
 
 import car.CarInstance;
 import cell.*;
+import main.Settings;
 
 import static java.lang.Math.max;
 
@@ -373,11 +374,46 @@ public class Road {
         }
     }
 
-    public void startSimulation(Road road){
-        road.CreateCars(25, road1, 0);
-        road.CreateCars(25, road1, 1);
-        road.CreateCars(25, road2, 0);
-        road.CreateCars(25, road2, 1);
+    public String carsOnRoad(){
+        Integer counter = 0;
+
+        for (int i = 0; i < 2; i++){
+            for (int j=0; j<1733; j++){
+                if (road1[j][i].getisCar())
+                    counter++;
+                if (road2[j][i].getisCar())
+                    counter++;
+            }
+        }
+        return counter.toString();
+    }
+
+    public String averageSpeed(){
+        Integer counter = 0;
+        Integer speed = 0;
+        for (int i = 0; i < 2; i++){
+            for (int j = 0; j<1733; j++){
+                if (road1[j][i].getisCar()) {
+                    counter++;
+                    speed += road1[j][i].getCar().getSpeed();
+                }
+                if (road2[j][i].getisCar()) {
+                    counter++;
+                    speed += road2[j][i].getCar().getSpeed();
+                }
+            }
+        }
+        double finalValue = (double)speed/counter * 27;
+
+        return String.format("%.2f", finalValue);
+    }
+
+    public void startSimulation(Road road, Settings settings){
+        var capacity = settings.carNumber/4;
+        road.CreateCars(capacity , road1, 0);
+        road.CreateCars(capacity, road1, 1);
+        road.CreateCars(capacity, road2, 0);
+        road.CreateCars(capacity, road2, 1);
     }
 
 }
