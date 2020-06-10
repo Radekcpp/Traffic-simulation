@@ -213,7 +213,7 @@ public class MapController {
             int secondIterator = 0;
             int thirdIterator = 0;
             int fourthIterator = 0;
-            for (int i = beginClockwise; i < streetLightPointsClockwise[13]; i++) {
+            for (int i = beginClockwise+1; i < streetLightPointsClockwise[13]; i++) {
                 rectangleFirst = new Rectangle(63,63);
                 rectangleSecond = new Rectangle(63,63);
 
@@ -242,9 +242,6 @@ public class MapController {
                     else
                         rectangleSecond.setFill(Color.BLACK);
                 }
-
-
-
 
                 firstIterator++;
 
@@ -252,7 +249,7 @@ public class MapController {
                 table2.add(rectangleSecond, firstIterator, 2, 1, 1);
             }
 
-            for (int i = streetLightPointsClockwise[0]; i < streetLightPointsClockwise[1]; i++) {
+            for (int i = streetLightPointsClockwise[0]; i < streetLightPointsClockwise[1]+1; i++) {
                 rectangleFirst = new Rectangle(63,63);
                 rectangleSecond = new Rectangle(63,63);
 
@@ -282,10 +279,10 @@ public class MapController {
                         rectangleSecond.setFill(Color.BLACK);
                 }
 
-                secondIterator++;
+                firstIterator++;
 
-                table2.add(rectangleFirst, secondIterator, 1, 1, 1);
-                table2.add(rectangleSecond, secondIterator, 2, 1, 1);
+                table2.add(rectangleFirst, firstIterator, 1, 1, 1);
+                table2.add(rectangleSecond, firstIterator, 2, 1, 1);
             }
 
             for (int i = streetLightPointsCounterClockwise[1]; i > streetLightPointsCounterClockwise[0]; i--) {
@@ -306,13 +303,13 @@ public class MapController {
 
                 }
 
-                if (road2[i][1].getType() == RoadType.Lights) {
-                    if (road2[i][1].getTrafficLights().getLights_color())
+                if (road1[i][1].getType() == RoadType.Lights) {
+                    if (road1[i][1].getTrafficLights().getLights_color())
                         rectangleSecond.setFill(Color.GREEN);
                     else
                         rectangleSecond.setFill(Color.RED);
                 } else {
-                    if (road2[i][1].getisCar())
+                    if (road1[i][1].getisCar())
                         rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car1.png")));
                     else
                         rectangleSecond.setFill(Color.BLACK);
@@ -324,7 +321,7 @@ public class MapController {
                 table1.add(rectangleSecond, thirdIterator, 2, 1, 1);
             }
 
-            for (int i = 1732; i > beginCounterClockwise - 1; i--) {
+            for (int i = 1732; i > beginCounterClockwise; i--) {
                 rectangleFirst = new Rectangle(63,63);
                 rectangleSecond = new Rectangle(63,63);
 
@@ -348,21 +345,21 @@ public class MapController {
                         rectangleSecond.setFill(Color.RED);
                 } else {
                     if (road2[i][1].getisCar())
-                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car2.png")));
+                        rectangleSecond.setFill(new ImagePattern(new Image("/main/img/car1.png")));
                     else
                         rectangleSecond.setFill(Color.BLACK);
                 }
 
-                fourthIterator++;
+                thirdIterator++;
 
-                table1.add(rectangleFirst, fourthIterator, 1, 1, 1);
-                table1.add(rectangleSecond, fourthIterator, 2, 1, 1);
+                table1.add(rectangleFirst, thirdIterator, 1, 1, 1);
+                table1.add(rectangleSecond, thirdIterator, 2, 1, 1);
             }
         }
         else {
             int firstIterator = 0;
             int secondIterator = 0;
-            for (int i = beginClockwise; i < endClockwise; i++) {
+            for (int i = beginClockwise +1; i < endClockwise +1; i++) {
                 rectangleFirst = new Rectangle(63,63);
                 rectangleSecond = new Rectangle(63,63);
 
@@ -398,7 +395,7 @@ public class MapController {
                 table2.add(rectangleSecond, firstIterator, 2, 1, 1);
             }
 
-            for (int i = endCounterClockwise; i > beginCounterClockwise -1; i--) {
+            for (int i = endCounterClockwise; i > beginCounterClockwise; i--) {
                 rectangleFirst = new Rectangle(63,63);
                 rectangleSecond = new Rectangle(63,63);
 
