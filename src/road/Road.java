@@ -25,34 +25,8 @@ public class Road {
     public Road()
     {
         Random rand = new Random();
-        int weatherInt = rand.nextInt(3);
-        int dayTimeInt = rand.nextInt(3);
         int nextLight1 = 1;
         int nextLight2 = 1;
-
-        switch (weatherInt) {
-            case 1:
-                weather = Weather.sun;
-            case 2:
-                weather = Weather.rain;
-            case 3:
-                weather = Weather.snow;
-        }
-
-        switch (dayTimeInt){
-            case 1:
-                dayTime = DayTime.Morning;
-                maxCapacity = 350;
-            case 2:
-                dayTime = DayTime.Noon;
-                maxCapacity = 700;
-            case 3:
-                dayTime = DayTime.Midnight;
-                maxCapacity = 500;
-            case 4:
-                dayTime = DayTime.Night;
-                maxCapacity = 300;
-        }
 
         for (var counter = 0; counter < 1733; counter++) {
             road1[counter][0] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
