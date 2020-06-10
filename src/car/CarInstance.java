@@ -8,7 +8,7 @@ public class CarInstance  {
     private int speed;
     private int maxSpeed;
     private DriverPersonality personality;
-    private int destination;
+    public int destination;
     private int slowProbability;
 
     public CarInstance(){

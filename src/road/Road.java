@@ -200,14 +200,14 @@ public class Road {
                                 break;
                             }
                         }
-                        if (road1[i][j].getCar() == null)
-                            System.out.println("now");
-                        if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
-                            // try to change Lane to get to outer so car can leave
-                            if(!overtake(road1,i,0) && road1[i][0].getCar().getSpeed()>1){
-                                road1[i][0].getCar().setSpeed(1);
-                            }
-                        }
+//                        if (road1[i][j].getCar() == null)
+//                            System.out.println("now");
+//                        if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
+//                            // try to change Lane to get to outer so car can leave
+//                            if(!overtake(road1,i,0) && road1[i][0].getCar().getSpeed()>1){
+//                                road1[i][0].getCar().setSpeed(1);
+//                            }
+//                        }
                         /*if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
                             //{ in future - LEAVE BYPASS}
                         }*/
@@ -298,14 +298,14 @@ public class Road {
                             }
 
                         }
-                        if (road2[i][0].getDistanceFromLights() <= 10 &&
-                                road2[i][0].getCar() != null &&
-                                road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
-                            // try to change Lane to get to outer so car can leave
-                            if(!overtake(road2,i,0) && road2[i][0].getCar().getSpeed()>1){
-                                road2[i][0].getCar().setSpeed(1);
-                            }
-                        }
+//                        if (road2[i][0].getDistanceFromLights() <= 10 &&
+//                                road2[i][0].getCar() != null &&
+//                                road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
+//                            // try to change Lane to get to outer so car can leave
+//                            if(!overtake(road2,i,0) && road2[i][0].getCar().getSpeed()>1){
+//                                road2[i][0].getCar().setSpeed(1);
+//                            }
+//                        }
 //                        if (road2[i][1].getDistanceFromLights() <= velocity && road2[i][1].getCar().getDestination() == road2[i][1].getNextCrossroad()) {
 //                            //{ in future - LEAVE BYPASS}
 //                        }

@@ -1,5 +1,7 @@
 package main;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import road.Road;
 
 import java.io.IOException;
@@ -46,6 +49,7 @@ public class MapController {
     public int beginClockwise;
     public int endClockwise;
     public Road road;
+    Timeline updater;
 
     public void initialize() throws IOException, InterruptedException {
         crossroadPick.setValue(crossroadList.get(0));
@@ -53,15 +57,15 @@ public class MapController {
     }
 
     public void Update() throws IOException, InterruptedException {
-        //this.carsNumber.setText(TODO: get data from backend);
-        //this.avgSpeed.setText("TODO: get data from backend");
-        while(true) {
-            this.road.moveRoad1();
-           // this.road.moveRoad2();
-            this.road.ResetFlags();
-            TimeUnit.MILLISECONDS.sleep(100);
-            draw();
-        }
+        updater = new Timeline(new KeyFrame(Duration.seconds(1), event ->
+            {
+                this.road.moveRoad1();
+                this.road.moveRoad2();
+                this.road.ResetFlags();
+                draw();
+            }));
+        updater.setCycleCount(Timeline.INDEFINITE);
+        updater.play();
     }
 
     public void updateTrafficOrder() throws IOException {
@@ -186,9 +190,10 @@ public class MapController {
         menuController.mainController = this.mainController;
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
+        updater.stop();
     }
 
-    public void draw() throws IOException {
+    public void draw() {
         Pane clockwiseRoad = new Pane();
         Pane counterClockwiseRoad = new Pane();
 
@@ -255,7 +260,10 @@ public class MapController {
             }
         }
         else {
+            int firstIterator = 0;
+            int secondIterator = 0;
             for (int i = beginClockwise; i < endClockwise; i++) {
+
                 if (road2[i][0].getisCar())
                     rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
@@ -264,12 +272,13 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                firstIterator++;
 
-                table2.add(rectangleFirst, i, 1, 1, 1);
-                table2.add(rectangleSecond, i, 2, 1, 1);
+                table2.add(rectangleFirst, firstIterator, 1, 1, 1);
+                table2.add(rectangleSecond, firstIterator, 2, 1, 1);
             }
 
-            for (int i = endCounterClockwise; i > beginCounterClockwise- 1; i--) {
+            for (int i = endCounterClockwise; i > beginCounterClockwise -1; i--) {
                 if (road1[i][0].getisCar())
                     rectangleFirst = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
@@ -278,15 +287,16 @@ public class MapController {
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.GREEN);
                 else
                     rectangleSecond = new Rectangle(3 * 21, 3 * 21, Color.BLACK);
+                secondIterator++;
 
-                table1.add(rectangleFirst, i, 1, 1, 1);
-                table1.add(rectangleSecond, i, 2, 1, 1);
+                table1.add(rectangleFirst, secondIterator, 1, 1, 1);
+                table1.add(rectangleSecond, secondIterator, 2, 1, 1);
             }
         }
 
-        clockwiseRoad.getChildren().add(table1);
+        clockwiseRoad.getChildren().add(table2);
         this.roadClockWise.setContent(clockwiseRoad);
-        counterClockwiseRoad.getChildren().add(table2);
+        counterClockwiseRoad.getChildren().add(table1);
         this.roadCounterClockWise.setContent(counterClockwiseRoad);
     }
 

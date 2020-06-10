@@ -68,8 +68,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="1189.0">
                <children>
-                  <ScrollPane fx:id="roadClockWise" layoutX="6.0" layoutY="101.0" prefHeight="143.0" prefWidth="1198.0" />
-                  <ScrollPane fx:id="roadCounterClockWise" layoutY="286.0" prefHeight="143.0" prefWidth="1198.0" />
+                  <ScrollPane fx:id="roadCounterClockWise" layoutX="6.0" layoutY="101.0" prefHeight="143.0" prefWidth="1198.0" />
+                  <ScrollPane fx:id="roadClockWise" layoutY="286.0" prefHeight="143.0" prefWidth="1198.0" />
                   <Label fx:id="trafficOrder" alignment="CENTER" layoutX="35.0" layoutY="20.0" prefHeight="64.0" prefWidth="1139.0" text="Ląbel">
                      <font>
                         <Font size="35.0" />
