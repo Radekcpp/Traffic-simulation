@@ -181,9 +181,11 @@ public class Road {
                             System.out.println("now");
                         if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getisCar() && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
                             // try to change Lane to get to outer so car can leave
-                            if(!overtake(road1,i,0) && road1[i][0].getCar().getSpeed()>1){
+                            if(!overtake(road1,i,0)){
                                 road1[i][0].getCar().setSpeed(1);
                             }
+                            else
+                                break;
                         }
                         /*if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
                             //{ in future - LEAVE BYPASS}
@@ -193,7 +195,6 @@ public class Road {
                             //TODO:
                             // Random slow with given probability - needs to be done
                         if (velocity != 0) {
-
                             road1[i][j].swapCar(road1[i][j],road1[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
                     }
@@ -279,6 +280,8 @@ public class Road {
                             if(!overtake(road2,i,0) && road2[i][0].getCar().getSpeed()>1){
                                 road2[i][0].getCar().setSpeed(1);
                             }
+                            else
+                                break;
                         }
 //                        if (road2[i][1].getDistanceFromLights() <= velocity && road2[i][1].getCar().getDestination() == road2[i][1].getNextCrossroad()) {
 //                            //{ in future - LEAVE BYPASS}
@@ -369,9 +372,15 @@ public class Road {
         Integer speed = 0;
         for (int i = 0; i < 2; i++){
             for (int j = 0; j<1733; j++){
-                if (road1[j][i].getisCar()) {
-                    counter++;
-                    speed += road1[j][i].getCar().getSpeed();
+                try {
+                    if (road1[j][i].getisCar()) {
+                        counter++;
+                        speed += road1[j][i].getCar().getSpeed();
+                    }
+                }
+                catch(NullPointerException ex){
+                    var temp = road1[j][i];
+                    System.out.println("test");
                 }
                 if (road2[j][i].getisCar()) {
                     counter++;
