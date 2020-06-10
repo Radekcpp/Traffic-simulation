@@ -9,7 +9,7 @@ public class TrafficLights {
 
     public TrafficLights(boolean color){
         this.Lights_color = color;
-        this.timer = ThreadLocalRandom.current().nextInt(30,51);
+        this.timer = ThreadLocalRandom.current().nextInt(25,51);
     }
     public void setLights_color(boolean lights_colour){this.Lights_color = lights_colour;}
 

@@ -10,6 +10,7 @@ import static java.lang.Math.max;
 
 public class Road {
 
+    private int timer;
     public static int[] streetLightPointsCounterClockwise = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
     public static int[] streetLightPointsClockwise = new int[]{0,170,240,276,326,451,559,751,883,1133,1262,1444,1521,1733};
     public static Cell[][] road1 = new Cell[1733][2];
@@ -27,7 +28,7 @@ public class Road {
         Random rand = new Random();
         int nextLight1 = 1;
         int nextLight2 = 1;
-
+        this.timer = 0;
         for (var counter = 0; counter < 1733; counter++) {
             road1[counter][0] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
             road1[counter][1] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
@@ -110,6 +111,34 @@ public class Road {
         }
     }
 
+    public void ChangeTimer(){
+        int timer0Road1, timer1Road1, timer0Road2, timer1Road2;
+        this.timer++;
+        if(this.timer == 100){
+            this.timer = 1;
+        }
+        for (int i = 1; i<13; i++){
+            timer0Road1 = road1[streetLightPointsCounterClockwise[i]][0].getTrafficLights().getTimer();
+            timer0Road2 = road2[streetLightPointsClockwise[i]][0].getTrafficLights().getTimer();
+            road1[streetLightPointsCounterClockwise[i]][1].getTrafficLights().setTimer(timer0Road1);
+            road2[streetLightPointsClockwise[i]][1].getTrafficLights().setTimer(timer0Road2);
+            timer1Road1 = road1[streetLightPointsCounterClockwise[i]][1].getTrafficLights().getTimer();
+            timer1Road2 = road2[streetLightPointsClockwise[i]][1].getTrafficLights().getTimer();
+            if(this.timer%timer0Road1 == 0){
+                road1[streetLightPointsCounterClockwise[i]][0].getTrafficLights().Change_color();
+            }
+            if(this.timer%timer1Road1 == 0){
+                road1[streetLightPointsCounterClockwise[i]][1].getTrafficLights().Change_color();
+            }
+            if(this.timer%timer0Road2 == 0){
+                road2[streetLightPointsClockwise[i]][0].getTrafficLights().Change_color();
+            }
+            if(this.timer%timer1Road2 == 0){
+                road2[streetLightPointsClockwise[i]][1].getTrafficLights().Change_color();
+            }
+        }
+    }
+
     boolean overtake (Cell[][] road, int posX, int posY){ //method to overtake, return true if it was successful, false if it wasn't and car didn't move as an arguments it takes indexes of current positions
         int adjacentLane;
         int velocity = road[posX][posY].getCar().getSpeed();
@@ -169,8 +198,12 @@ public class Road {
                         velocity = road1[i][j].getCar().getSpeed();
                         if (velocity < road1[i][j].getCar().getMaxSpeed())
                             velocity++;
+                            road1[i][j].getCar().setSpeed(velocity);
                         for (int v = 1; v <= velocity + 1; v++) { //checking if all the cells we want to go through are free
                             if (road1[i + v][j].getisCar()) {
+                                if(overtake(road1, i,j)){
+                                    break;
+                                }
                                 road1[i][j].getCar().setSpeed(max(0, v - 2));
                                 velocity = max(0, v - 2);
                                 break;
@@ -286,7 +319,6 @@ public class Road {
 //                        if (road2[i][1].getDistanceFromLights() <= velocity && road2[i][1].getCar().getDestination() == road2[i][1].getNextCrossroad()) {
 //                            //{ in future - LEAVE BYPASS}
 //                        }
-
 
                         //TODO:
                         // Random slow with given probability - needs to be done

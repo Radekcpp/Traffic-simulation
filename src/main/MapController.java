@@ -68,6 +68,7 @@ public class MapController {
                 carsNumber.setText(road.carsOnRoad());
                 avgSpeed.setText(road.averageSpeed());
                 this.road.ResetFlags();
+                this.road.ChangeTimer();
                 draw();
             }));
         updater.setCycleCount(Timeline.INDEFINITE);
