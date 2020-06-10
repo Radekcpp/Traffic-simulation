@@ -188,57 +188,77 @@ public class Road {
         }
     }
 
-    boolean isSlowedDown(Cell[][] road, int i, int j){
+    void slowDown(Cell[][] road, int i, int j){
         for (int vel = 1; vel <= road[i][j].getCar().getSpeed(); vel++){
             if (road[i+vel][j].getisCar()){
                 road[i][j].getCar().setSpeed(vel-1);
-                return true;
             }
         }
-        return false;
     }
 
-    public void move1(Cell[][] road){
+    void deleteCar(Cell cell){
+        cell.setCar(null);
+        cell.setisCar(false);
+    }
+
+    public void move(Cell[][] road){
         for (int j=0; j<2; j++){
             for (int i=0; i<1730; i++){
+                Cell cell = road[i][j];
+
                 if (!road[i][j].getisCar())
                     continue;
 
                 if (road[i][j].getMoved())
                     continue;
 
-                CarInstance car = road[i][j].getCar();
+                CarInstance car = cell.getCar();
                 car.setSpeed(min(car.getSpeed()+1, car.getMaxSpeed()));
 
-                if (isSlowedDown(road,i,j))
-                    break;
+                slowDown(road,i,j);
 
-                if (car.getDestination() == road[i][j].getNextCrossroad()){
-                    if (j!=1){
-                        if (!swapLanes(road, i, j)){
-                            car.setSpeed();
-                        }
+                if (cell.getDistanceFromLights() < car.getSpeed()){
+                    if (car.getDestination() == cell.getNextCrossroad()){
+                        if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
+                            deleteCar(cell);
+                        else
+                            stopOnRed(road, i, j);
                     }
+                    else{
+                        if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
+                            cell.swapCar(cell, road[i + car.getSpeed()][j]);
+                        else
+                            stopOnRed(road, i, j);
+                    }
+                    continue;
                 }
+                else
+                    cell.swapCar(cell, road[i + car.getSpeed()][j]);
+            }
+        }
+
+        //EDGE CASE
+        for (int j=0; j<2; j++){
+            for (int i=1730; i<1733; i++){
 
             }
         }
     }
 
-    public boolean swapLanes(Cell[][] road, int i, int j){
-        int adjacentLane;
-        if (j==1)
-            adjacentLane = 0;
-        else
-            adjacentLane = 1;
-
-        if (road[i][adjacentLane].getisCar()){
-            return false;
-        }
-        road[i][j].swapCar(road[i][j],road[i][adjacentLane]);
-        if (isSlowedDown())
-        return true;
-    }
+//    public boolean swapLanes(Cell[][] road, int i, int j){
+//        int adjacentLane;
+//        if (j==1)
+//            adjacentLane = 0;
+//        else
+//            adjacentLane = 1;
+//
+//        if (road[i][adjacentLane].getisCar()){
+//            return false;
+//        }
+//        road[i][j].swapCar(road[i][j],road[i][adjacentLane]);
+//        if (isSlowedDown())
+//        return true;
+//    }
 
     public void moveRoad1() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
