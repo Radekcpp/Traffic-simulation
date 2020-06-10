@@ -80,12 +80,13 @@ public class Road {
             if(!road[position][0].getTrafficLights().getLights_color()){
                 amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
                 if(amountOfCars > 1){
-                if(!road[position+1][0].getisCar()){
-                    road[position+1][0].setisCar(true);
-                    road[position+1][0].setCar(new CarInstance());
-                    road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                    if(!road[position+1][0].getisCar()){
+                        road[position+1][0].setisCar(true);
+                        road[position+1][0].setCar(new CarInstance());
+                        road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                    }
                 }
-                }
+                amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
                 if(amountOfCars > 1) {
                     if (!road[position + 1][1].getTrafficLights().getLights_color()) {
                         road[position + 1][0].setisCar(true);
