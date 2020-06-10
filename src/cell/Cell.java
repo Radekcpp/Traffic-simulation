@@ -84,14 +84,14 @@ public class Cell {
         return type;
     }
 
-    public void swapCar (Cell cell){ //takes a cell with car and switches it to empty and the other way around
-        CarInstance temp = this.getCar();
-        this.setCar(cell.getCar());
-        cell.setCar(temp);
-        this.setisCar(false);
-        cell.setisCar(true);
-        this.setMoved(false);
-        cell.setMoved(true);
+    public void swapCar (Cell start,Cell finish){ //takes a cell with car and switches it to empty and the other way around
+        CarInstance temp = start.getCar();
+        start.setCar(finish.getCar());
+        finish.setCar(temp);
+        start.setisCar(false);
+        finish.setisCar(true);
+        start.setMoved(false);
+        finish.setMoved(true);
     }
 }
 
