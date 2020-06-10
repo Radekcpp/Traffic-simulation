@@ -6,6 +6,7 @@ import cell.*;
 import main.Settings;
 
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 
 public class Road {
@@ -187,11 +188,63 @@ public class Road {
         }
     }
 
+    boolean isSlowedDown(Cell[][] road, int i, int j){
+        for (int vel = 1; vel <= road[i][j].getCar().getSpeed(); vel++){
+            if (road[i+vel][j].getisCar()){
+                road[i][j].getCar().setSpeed(vel-1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void move1(Cell[][] road){
+        for (int j=0; j<2; j++){
+            for (int i=0; i<1730; i++){
+                if (!road[i][j].getisCar())
+                    continue;
+
+                if (road[i][j].getMoved())
+                    continue;
+
+                CarInstance car = road[i][j].getCar();
+                car.setSpeed(min(car.getSpeed()+1, car.getMaxSpeed()));
+
+                if (isSlowedDown(road,i,j))
+                    break;
+
+                if (car.getDestination() == road[i][j].getNextCrossroad()){
+                    if (j!=1){
+                        if (!swapLanes(road, i, j)){
+                            car.setSpeed();
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    public boolean swapLanes(Cell[][] road, int i, int j){
+        int adjacentLane;
+        if (j==1)
+            adjacentLane = 0;
+        else
+            adjacentLane = 1;
+
+        if (road[i][adjacentLane].getisCar()){
+            return false;
+        }
+        road[i][j].swapCar(road[i][j],road[i][adjacentLane]);
+        if (isSlowedDown())
+        return true;
+    }
+
     public void moveRoad1() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
         for(int j=0;j<2;j++) {
-            for (int i = 0; i < 1728; i++) {       //forward movement in general, without traffic lights
+            for (int i = 0; i < 1728; i++) {
                 if (road1[i][j].getMoved()) {
                     continue;
                 } else {
@@ -203,27 +256,25 @@ public class Road {
                             if (road1[i + v][j].getisCar()) {
                                 road1[i][j].getCar().setSpeed(max(0, v - 2));
                                 velocity = max(0, v - 2);
-                                break;
+                                continue;
                             }
                         }
                         road1[i][j].getCar().setSpeed(velocity);
-                        if (road1[i][j].getCar() == null)
-                            System.out.println("now");
-                        if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getisCar() && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
+                        if (j == 0 && road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getisCar() && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
                             // try to change Lane to get to outer so car can leave
-                            if(!overtake(road1,i,0)){
+                            if(!overtake(road1,i,0)) {
                                 road1[i][0].getCar().setSpeed(1);
+                                velocity = 1;
                             }
-                            else
-                                break;
                         }
                         /*if (road1[i][1].getDistanceFromLights() <= velocity && road1[i][1].getCar().getDestination() == road1[i][1].getNextCrossroad()) {
                             //{ in future - LEAVE BYPASS}
                         }*/
+                        if (velocity > road1[i][j].getDistanceFromLights()) {
+                            stopOnRed(road1, i, j);
+                            continue;
+                        }
 
-
-                            //TODO:
-                            // Random slow with given probability - needs to be done
                         if (velocity != 0) {
                             road1[i][j].swapCar(road1[i][j],road1[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
@@ -284,6 +335,7 @@ public class Road {
             }
         }
     }
+
     public void moveRoad2() { //function which moves car on the whole bypass, temporary version moving them in only one direction
         int k = 0;
         int velocity;
@@ -317,9 +369,11 @@ public class Road {
 //                            //{ in future - LEAVE BYPASS}
 //                        }
 
+//                        if (velocity > road2[i][j].getDistanceFromLights()) {
+//                            stopOnRed(road2, i, j);
+//                            continue;
+//                        }
 
-                        //TODO:
-                        // Random slow with given probability - needs to be done
                         if (velocity != 0) {
                             road2[i][j].swapCar(road2[i][j],road2[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
