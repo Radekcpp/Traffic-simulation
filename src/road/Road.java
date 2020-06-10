@@ -127,7 +127,6 @@ public class Road {
                     return false;
                 }
             }
-            road[posX][posY].setMoved(true);
             road[posX][posY].swapCar(road[posX][posY],road[posX+velocity][adjacentLane]);
         }
         return true;
@@ -175,6 +174,7 @@ public class Road {
                                 break;
                             }
                         }
+                        road1[i][j].getCar().setSpeed(velocity);
 //                        if (road1[i][j].getCar() == null)
 //                            System.out.println("now");
 //                        if (road1[i][0].getDistanceFromLights() <= 10 && road1[i][0].getCar().getDestination() == road1[i][0].getNextCrossroad()) {
@@ -191,7 +191,7 @@ public class Road {
                             //TODO:
                             // Random slow with given probability - needs to be done
                         if (velocity != 0) {
-                            road1[i][j].setMoved(true);
+
                             road1[i][j].swapCar(road1[i][j],road1[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
                     }
@@ -211,8 +211,8 @@ public class Road {
                                 break;
                             }
                         }
+                        road1[i][j].getCar().setSpeed(velocity);
                         if (velocity != 0) {
-                            road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[i][j],road1[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
                     } else if (i + velocity == 1732) {                                                 //edge case without going through nr 2
@@ -224,28 +224,25 @@ public class Road {
                             }
 
                         }
+                        road1[i][j].getCar().setSpeed(velocity);
                         if (velocity != 0 && i + velocity < 1732) {
-                            road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[i][j],road1[i + velocity][j]);
                             break;
                         }
                         if (velocity != 0 && !road1[0][j].getisCar()) {
-                            road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[i][j],road1[1732][j]);
                             break;
                         }
                         if (road1[0][j].getisCar()) {
-                            road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[i][j],road1[1731][j]);
                             break;
                         } else {
-                            road1[i][j].setMoved(true);
+
                             road1[i][j].swapCar(road1[i][j],road1[1732][j]);
                             break;
                         }
                     } else {                                  // edge case with going through
                         if (!road1[0][j].getisCar() && !road1[1][j].getisCar()) {
-                            road1[i][j].setMoved(true);
                             road1[i][j].swapCar(road1[i][j],road1[0][j]);
                             break;
                         }
@@ -271,8 +268,8 @@ public class Road {
                                 velocity = max(0, v - 2);
                                 break;
                             }
-
                         }
+                        road2[i][j].getCar().setSpeed(velocity);
 //                        if (road2[i][0].getDistanceFromLights() <= 10 &&
 //                                road2[i][0].getCar() != null &&
 //                                road2[i][0].getCar().getDestination() == road2[i][0].getNextCrossroad()) {
@@ -289,7 +286,6 @@ public class Road {
                         //TODO:
                         // Random slow with given probability - needs to be done
                         if (velocity != 0) {
-                            road2[i][j].setMoved(true);
                             road2[i][j].swapCar(road2[i][j],road2[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
                     }
@@ -309,8 +305,9 @@ public class Road {
                                 break;
                             }
                         }
+                        road2[i][j].getCar().setSpeed(velocity);
                         if (velocity != 0) {
-                            road2[i][j].setMoved(true);
+
                             road2[i][j].swapCar(road2[i][j],road2[i + velocity][j]);//swap cells on positions i and i+velocity
                         }
                     } else if (i + velocity == 1732) {                                                 //edge case without going through nr 2
@@ -322,26 +319,27 @@ public class Road {
                             }
 
                         }
+                        road2[i][j].getCar().setSpeed(velocity);
                         if (velocity != 0 && i + velocity < 1732) {
-                            road1[i][j].setMoved(true);
+
                             road1[i][j].swapCar(road1[i][j],road2[i + velocity][j]);
                             break;
                         }
                         if (velocity != 0 && !road2[0][j].getisCar()) {
-                            road2[i][j].setMoved(true);
+
                             road2[i][j].swapCar(road2[i][j],road2[1732][j]);
                             break;
                         }
                         if (road2[0][j].getisCar()) {
-                            road2[i][j].setMoved(true);
+
                             road2[i][j].swapCar(road2[i][j],road2[1731][j]);
                         } else {
-                            road2[i][j].setMoved(true);
+
                             road2[i][j].swapCar(road2[i][j],road2[1732][j]);
                         }
                     } else {                                  // edge case with going through
                         if (!road2[0][j].getisCar() && !road2[1][j].getisCar()) {
-                            road2[i][j].setMoved(true);
+
                             road2[i][j].swapCar(road2[i][j],road2[0][j]);
                         }
                     }

@@ -88,10 +88,10 @@ public class Cell {
         CarInstance temp = start.getCar();
         start.setCar(finish.getCar());
         finish.setCar(temp);
-        start.setisCar(false);
         finish.setisCar(true);
-        start.setMoved(false);
+        start.setisCar(false);
         finish.setMoved(true);
+        start.setMoved(false);
     }
 }
 
