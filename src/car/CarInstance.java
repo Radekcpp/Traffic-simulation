@@ -1,5 +1,6 @@
 package car;
 import cell.*;
+import main.Settings;
 import road.Weather;
 
 import java.util.Random;
@@ -46,17 +47,26 @@ public class CarInstance  {
     public int getMaxSpeed() { return this.maxSpeed; }
 
     public void setMaxSpeed(DriverPersonality driverPersonality) {
+        Random rand = new Random();
+        double randomGeneric = (rand.nextInt(100) +1)/(100.00);
+        this.maxSpeed = 3;
+        double slowProbability = 0.0;
         switch (this.personality) {
             case Aggressive:
-                this.maxSpeed=3;
+                slowProbability = 0.0;
                 break;
             case Normal:
-                this.maxSpeed=2;
+                slowProbability = 0.3;
                 break;
             case Defensive:
-                this.maxSpeed=2;
+                slowProbability = 0.6;
                 break;
         }
+        if (randomGeneric<Settings.slow + slowProbability){
+            this.maxSpeed--;
+        }
+
+
     }
 
     public DriverPersonality getDriverPersonality() { return this.personality; }

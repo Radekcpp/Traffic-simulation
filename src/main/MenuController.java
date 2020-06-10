@@ -51,7 +51,7 @@ public class MenuController {
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
         mapController.road = new Road();
-        mapController.road.startSimulation(mapController.road, settings);
+        mapController.road.startSimulation(mapController.road);
         mapController.Update();
     }
 
