@@ -85,13 +85,15 @@ public class Cell {
     }
 
     public void swapCar (Cell start,Cell finish){ //takes a cell with car and switches it to empty and the other way around
-        CarInstance temp = start.getCar();
-        start.setCar(finish.getCar());
-        finish.setCar(temp);
-        finish.setisCar(true);
-        start.setisCar(false);
-        start.setMoved(false);
-        finish.setMoved(true);
+        if (start != finish) {
+            CarInstance temp = start.getCar();
+            start.setCar(finish.getCar());
+            finish.setCar(temp);
+            finish.setisCar(true);
+            start.setisCar(false);
+            start.setMoved(false);
+            finish.setMoved(true);
+        }
     }
 }
 

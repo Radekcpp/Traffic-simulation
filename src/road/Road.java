@@ -251,8 +251,10 @@ public class Road {
                         }
                     continue;
                 }
-                else
+                else {
+                    slowDown(road, i, j);
                     cell.swapCar(cell, road[i + car.getSpeed()][j]);
+                }
             }
         }
 
