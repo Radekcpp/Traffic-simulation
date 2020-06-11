@@ -206,6 +206,8 @@ public class MapController {
         menuController.mainController = this.mainController;
         mainController.layout.getChildren().clear();
         mainController.layout.getChildren().add(pane);
+        this.road.enteredCars = 0;
+        this.road.deletedCars = 0;
         updater.stop();
     }
 
