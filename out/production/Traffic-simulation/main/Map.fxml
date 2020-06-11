@@ -54,7 +54,7 @@
                                           <Font size="32.0" />
                                        </font>
                                     </Label>
-                                    <Text layoutX="36.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut, które wjechały" wrappingWidth="155.8662109375">
+                                    <Text layoutX="36.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut, które wyjechały" wrappingWidth="155.8662109375">
                                        <font>
                                           <Font size="24.0" />
                                        </font>

@@ -74,8 +74,8 @@ public class MapController {
                 this.road.CarEntrance(road2,2);
                 carsNumber.setText(road.carsOnRoad());
                 avgSpeed.setText(road.averageSpeed());
-                //incomingCars.setText(somefnc);
-                //outcomingCars.setText()''
+                incomingCars.setText(String.valueOf(road.enteredCars));
+                outcomingCars.setText(String.valueOf(road.deletedCars));
                 this.road.ResetFlags();
                 this.road.ChangeTimer();
                 draw();
