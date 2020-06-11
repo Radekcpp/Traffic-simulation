@@ -65,6 +65,8 @@ public class MapController {
             {
                 this.road.move(road1);
                 this.road.move(road2);
+                this.road.CarEntrance(road1,1);
+                this.road.CarEntrance(road2,2);
                 carsNumber.setText(road.carsOnRoad());
                 avgSpeed.setText(road.averageSpeed());
                 this.road.ResetFlags();
