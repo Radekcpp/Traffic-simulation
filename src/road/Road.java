@@ -10,7 +10,8 @@ import static java.lang.Math.min;
 
 
 public class Road {
-
+    public static int deletedCars = 0;
+    public static int enteredCars = 0;
     private int timer;
     public static int[] streetLightPointsCounterClockwise = new int[]{0,212,289,471,600,850,982,1174,1282,1407,1457,1493,1563,1733};
     public static int[] streetLightPointsClockwise = new int[]{0,170,240,276,326,451,559,751,883,1133,1262,1444,1521,1733};
@@ -102,6 +103,7 @@ public class Road {
                         road[position+1][0].setisCar(true);
                         road[position+1][0].setCar(new CarInstance());
                         road[position+1][0].getCrossroad().setAmountOfCars(amountOfCars-1);
+                        Road.enteredCars++;
                     }
                 }
                 amountOfCars = road[position+1][0].getCrossroad().getAmountOfCars();
@@ -111,6 +113,7 @@ public class Road {
                         road[position + 1][1].setCar(new CarInstance());
                         amountOfCars = road[position + 1][0].getCrossroad().getAmountOfCars();
                         road[position + 1][0].getCrossroad().setAmountOfCars(amountOfCars - 1);
+                        Road.enteredCars++;
                     }
                 }
             }
@@ -232,6 +235,7 @@ public class Road {
     void deleteCar(Cell cell){
         cell.setCar(null);
         cell.setisCar(false);
+        Road.deletedCars++;
     }
 
     public void move(Cell[][] road){
