@@ -28,6 +28,7 @@ import static road.Road.*;
 
 public class MapController {
     public MainController mainController;
+
     ObservableList<String> crossroadList = FXCollections.observableArrayList(
             crossroads[1],crossroads[2],crossroads[3],
             crossroads[4],crossroads[5],crossroads[6],
@@ -45,6 +46,10 @@ public class MapController {
     public Label carsNumber;
     @FXML
     public Label avgSpeed;
+    @FXML
+    public Label incomingCars;
+    @FXML
+    public Label outcomingCars;
     @FXML
     public Label trafficOrder;
 
@@ -69,6 +74,8 @@ public class MapController {
                 this.road.CarEntrance(road2,2);
                 carsNumber.setText(road.carsOnRoad());
                 avgSpeed.setText(road.averageSpeed());
+                //incomingCars.setText(somefnc);
+                //outcomingCars.setText()''
                 this.road.ResetFlags();
                 this.road.ChangeTimer();
                 draw();

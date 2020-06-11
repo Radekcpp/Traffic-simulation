@@ -24,22 +24,42 @@
                            <children>
                               <Pane fx:id="statistics" prefHeight="483.0" prefWidth="431.0">
                                  <children>
-                                    <Text layoutX="53.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut:" wrappingWidth="140.2451171875">
+                                    <Text layoutX="36.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut:" wrappingWidth="140.2451171875">
                                        <font>
                                           <Font size="34.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="53.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Średnia prędkość:" wrappingWidth="164.8662109375">
+                                    <Text layoutX="36.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Średnia prędkość:" wrappingWidth="164.8662109375">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Text>
-                                    <Label fx:id="carsNumber" layoutX="216.0" layoutY="97.0" prefHeight="34.0" prefWidth="126.0" text="0">
+                                    <Label fx:id="carsNumber" layoutX="226.0" layoutY="64.0" prefHeight="34.0" prefWidth="126.0" text="0">
                                        <font>
                                           <Font size="32.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="avgSpeed" layoutX="216.0" layoutY="251.0" prefHeight="34.0" prefWidth="126.0" text="0">
+                                    <Label fx:id="avgSpeed" layoutX="226.0" layoutY="148.0" prefHeight="34.0" prefWidth="126.0" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="36.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut, które wjechały" wrappingWidth="155.8662109375">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="incomingCars" layoutX="226.0" layoutY="239.0" prefHeight="34.0" prefWidth="126.0" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                    <Text layoutX="36.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ilość aut, które wjechały" wrappingWidth="155.8662109375">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Label fx:id="outcomingCars" layoutX="226.0" layoutY="339.0" prefHeight="34.0" prefWidth="126.0" text="0">
                                        <font>
                                           <Font size="32.0" />
                                        </font>
