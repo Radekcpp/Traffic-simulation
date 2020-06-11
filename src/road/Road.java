@@ -79,8 +79,8 @@ public class Road {
             for (int i = 1; i<13; i++){
                 positionClockwise = streetLightPointsClockwise[i]+1;
                 positionCounterClockwise = streetLightPointsCounterClockwise[i]+1;
-                road1[positionClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[i]);
-                road2[positionCounterClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[j]);
+                road1[positionCounterClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[i]);
+                road2[positionClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[j]);
                 j--;
             }
         }
@@ -352,13 +352,12 @@ public class Road {
     }
 
     public void startSimulation(Road road){
+        road.getAndSetUserValues();
         var number = Settings.carNumber/4;
         road.CreateCars(number, road1, 0);
         road.CreateCars(number, road1, 1);
         road.CreateCars(number, road2, 0);
         road.CreateCars(number, road2, 1);
-        road.getAndSetUserValues();
-
     }
 
 }
