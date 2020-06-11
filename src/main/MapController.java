@@ -63,8 +63,8 @@ public class MapController {
     public void Update() throws IOException, InterruptedException {
         updater = new Timeline(new KeyFrame(Duration.seconds(1), event ->
             {
-                this.road.moveRoad1();
-                this.road.moveRoad2();
+                this.road.move(road1);
+                this.road.move(road2);
                 carsNumber.setText(road.carsOnRoad());
                 avgSpeed.setText(road.averageSpeed());
                 this.road.ResetFlags();

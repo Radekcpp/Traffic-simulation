@@ -34,8 +34,8 @@ public class Road {
         for (var counter = 0; counter < 1733; counter++) {
             road1[counter][0] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
             road1[counter][1] = new Cell(RoadType.Basic, streetLightPointsCounterClockwise[nextLight1] - counter, nextLight1);
-            road2[counter][0] = new Cell(RoadType.Basic, counter - streetLightPointsClockwise[nextLight2], nextLight2);
-            road2[counter][1] = new Cell(RoadType.Basic, counter - streetLightPointsClockwise[nextLight2], nextLight2);
+            road2[counter][0] = new Cell(RoadType.Basic, streetLightPointsClockwise[nextLight2] - counter, nextLight2);
+            road2[counter][1] = new Cell(RoadType.Basic, streetLightPointsClockwise[nextLight2] - counter, nextLight2);
 
             if (counter>1281 && counter<1563) {
                 road1[counter][0].setSpeedLimit(2);
@@ -196,6 +196,24 @@ public class Road {
         }
     }
 
+    void slowDown(Cell[][] road, int i, int j, boolean specialCase){
+        var toIterate = road[i][j].getCar().getSpeed();
+        for (var vel = 1; vel < 1733-i; vel++){
+            if (road[i+vel][j].getisCar()){
+                road[i][j].getCar().setSpeed(vel-1);
+                toIterate = 0;
+                break;
+            }
+            toIterate--;
+        }
+        for (int vel = 0; vel < toIterate; vel++){
+            if (road[0+vel][j].getisCar()){
+                road[i][j].getCar().setSpeed(vel+1);
+                break;
+            }
+        }
+    }
+
     void deleteCar(Cell cell){
         cell.setCar(null);
         cell.setisCar(false);
@@ -218,18 +236,18 @@ public class Road {
                 slowDown(road,i,j);
 
                 if (cell.getDistanceFromLights() < car.getSpeed()){
-                    if (car.getDestination() == cell.getNextCrossroad()){
-                        if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
-                            deleteCar(cell);
-                        else
-                            stopOnRed(road, i, j);
-                    }
-                    else{
-                        if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
-                            cell.swapCar(cell, road[i + car.getSpeed()][j]);
-                        else
-                            stopOnRed(road, i, j);
-                    }
+                        if (car.getDestination() == cell.getNextCrossroad()){
+                            if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
+                                deleteCar(cell);
+                            else
+                                stopOnRed(road, i, j);
+                        }
+                        else{
+                            if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
+                                cell.swapCar(cell, road[i + car.getSpeed()][j]);
+                            else
+                                stopOnRed(road, i, j);
+                        }
                     continue;
                 }
                 else
@@ -240,7 +258,29 @@ public class Road {
         //EDGE CASE
         for (int j=0; j<2; j++){
             for (int i=1730; i<1733; i++){
+                Cell cell = road[i][j];
 
+                if (!road[i][j].getisCar())
+                    continue;
+
+                if (road[i][j].getMoved())
+                    continue;
+
+                CarInstance car = cell.getCar();
+                car.setSpeed(min(car.getSpeed()+1, car.getMaxSpeed()));
+
+                if (i+car.getSpeed()>1732){
+                    var specialCase = true;
+                        slowDown(road,i,j,specialCase);
+                    if (i+car.getSpeed()<1733)
+                        cell.swapCar(cell,road[i+car.getSpeed()][j]);
+                    else
+                        cell.swapCar(cell,road[i+car.getSpeed()-1733][j]);
+                }
+                else{
+                    slowDown(road,i,j);
+                    cell.swapCar(cell, road[i + car.getSpeed()][j]);
+                }
             }
         }
     }
