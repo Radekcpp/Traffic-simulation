@@ -170,8 +170,9 @@ public class Road {
         for (int i = 1; i<= velocity; i++){
             if(road[posX+i][posY].getType() == RoadType.Lights && !road[posX+i][posY].getTrafficLights().getLights_color()){
                 road[posX][posY].setMoved(true);
-                road[posX][posY].swapCar(road[posX][posY],road[posX+i-1][posY]);
                 road[posX][posY].getCar().setSpeed(0);
+                if (posX+1-1 != posX)
+                    road[posX][posY].swapCar(road[posX][posY],road[posX+i-1][posY]);
             }
         }
     }
@@ -235,7 +236,7 @@ public class Road {
 
                 slowDown(road,i,j);
 
-                if (cell.getDistanceFromLights() < car.getSpeed()){
+                if (cell.getDistanceFromLights() <= car.getSpeed()){
                         if (car.getDestination() == cell.getNextCrossroad()){
                             if (road[i+cell.getDistanceFromLights()][j].getTrafficLights().getLights_color())
                                 deleteCar(cell);

@@ -90,8 +90,8 @@ public class Cell {
         finish.setCar(temp);
         finish.setisCar(true);
         start.setisCar(false);
-        finish.setMoved(true);
         start.setMoved(false);
+        finish.setMoved(true);
     }
 }
 
