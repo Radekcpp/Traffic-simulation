@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -9,7 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuController">
    <children>
-      <Button layoutX="269.0" layoutY="720.0" mnemonicParsing="false" onAction="#Start" prefHeight="148.0" prefWidth="661.0" text="Rozpocznij Symulacje">
+      <Button layoutX="273.0" layoutY="823.0" mnemonicParsing="false" onAction="#Start" prefHeight="148.0" prefWidth="661.0" text="Rozpocznij Symulacje">
          <font>
             <Font size="47.0" />
          </font></Button>
@@ -19,17 +21,47 @@
          </font>
       </Text>
       <Line endX="1099.0" layoutX="101.0" layoutY="207.0" startX="-100.0" />
-      <Text layoutX="235.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pora dnia" wrappingWidth="298.185546875">
+      <Text layoutX="40.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pora dnia" wrappingWidth="298.185546875">
          <font>
             <Font size="65.0" />
          </font>
       </Text>
-      <Text layoutX="235.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pogoda" wrappingWidth="298.185546875">
+      <Text layoutX="666.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pogoda" wrappingWidth="228.185546875">
          <font>
             <Font size="65.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="weather" layoutX="700.0" layoutY="355.0" prefHeight="59.0" prefWidth="251.0" />
-      <ChoiceBox fx:id="time" layoutX="700.0" layoutY="530.0" prefHeight="59.0" prefWidth="251.0" />
+      <ChoiceBox fx:id="weather" layoutX="930.0" layoutY="258.0" prefHeight="59.0" prefWidth="251.0" />
+      <ChoiceBox fx:id="time" layoutX="352.0" layoutY="258.0" prefHeight="59.0" prefWidth="251.0" />
+      <TextField fx:id="kukl" layoutX="254.0" layoutY="574.0" />
+      <Text layoutX="187.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustaw ilość aut chcących wjeżdżać na poszczególnych skrzyżowaniach">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text layoutX="115.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rondo Matecznego" />
+      <TextField fx:id="Tischnera" layoutX="254.0" layoutY="488.0" />
+      <TextField fx:id="SKA" layoutX="254.0" layoutY="534.0" />
+      <TextField fx:id="RMa" layoutX="254.0" layoutY="445.0" />
+      <TextField fx:id="RG" layoutX="254.0" layoutY="616.0" />
+      <TextField fx:id="RMo" layoutX="254.0" layoutY="663.0" />
+      <TextField fx:id="WA" layoutX="951.0" layoutY="445.0" />
+      <TextField fx:id="NK" layoutX="951.0" layoutY="488.0" />
+      <TextField fx:id="PI" layoutX="951.0" layoutY="534.0" />
+      <TextField fx:id="Cz" layoutX="951.0" layoutY="574.0" />
+      <TextField fx:id="R" layoutX="951.0" layoutY="616.0" />
+      <TextField fx:id="SC" layoutX="951.0" layoutY="663.0" />
+      <Text layoutX="100.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kamieńskiego i Tischnera" />
+      <Text layoutX="129.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Podgórze SKA" />
+      <Text layoutX="133.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kuklińskiego" />
+      <Text layoutX="110.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rondo Grzegórzeckie" />
+      <Text layoutX="121.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rondo Mogilskie" />
+      <Text layoutX="732.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wita Stwosza i Aleja 29 Listopada" />
+      <Text layoutX="784.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowy Kleparz" />
+      <Text layoutX="781.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plac Inwalidów" />
+      <Text layoutX="712.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Czarnowiejska i aleja Adama Mickiewicza" />
+      <Text layoutX="722.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reymonta i aleja Adama Mickiewicza" />
+      <Text layoutX="776.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stadion Cracovii" />
+      <CheckBox fx:id="defaultVariables" layoutX="124.0" layoutY="745.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="456.0" text="Użyj wartości w zależności od wprowadzonych danych zamiast pory dnia" />
    </children>
 </Pane>
