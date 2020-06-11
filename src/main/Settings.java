@@ -5,8 +5,8 @@ import road.Weather;
 public class Settings {
     public static int carNumber;
     public static double slow;
-    public int[] incomeCars = new int[13];
-    public boolean defaultValues;
+    public static int[] incomeCars = new int[13];
+    public static boolean defaultValues; //if true then default values, lese income values
 
     public void updateSettings(String weather, String dayTime, int[] inc, boolean defaultValues){
         switch (weather){
@@ -40,10 +40,10 @@ public class Settings {
             for (int i = 1; i < 13; i++) {
                 incomeCars[i] = inc[i];
             }
-            this.defaultValues = true;
+            this.defaultValues = false ;
         }
         else{
-            this.defaultValues = false;
+            this.defaultValues = true;
         }
 
     }

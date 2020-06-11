@@ -25,6 +25,7 @@ public class Road {
     public static DayTime dayTime;
     public int maxCapacity;
 
+
     public Road()
     {
         Random rand = new Random();
@@ -70,6 +71,20 @@ public class Road {
             road2[streetLightPointsClockwise[counter]+1][1].setCrossroad(new Crossroad(30));
         }
     }
+    public void getAndSetUserValues(){
+        int positionClockwise;
+        int positionCounterClockwise;
+        int j = 12;
+        if (!Settings.defaultValues){
+            for (int i = 1; i<13; i++){
+                positionClockwise = streetLightPointsClockwise[i]+1;
+                positionCounterClockwise = streetLightPointsCounterClockwise[i]+1;
+                road1[positionClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[i]);
+                road2[positionCounterClockwise][0].getCrossroad().setAmountOfCars(Settings.incomeCars[j]);
+                j--;
+            }
+        }
+    }
     public void CarEntrance (Cell[][] road, int roadNumber){ //cars entrance on crossroads, roadNumber defines which road is given a argument
         int position;
         int amountOfCars;
@@ -101,7 +116,6 @@ public class Road {
             }
         }
     }
-
 
 
     public void ResetFlags(){ //reset all flags to not moved for the next iteration of method move
@@ -343,6 +357,8 @@ public class Road {
         road.CreateCars(number, road1, 1);
         road.CreateCars(number, road2, 0);
         road.CreateCars(number, road2, 1);
+        road.getAndSetUserValues();
+
     }
 
 }
